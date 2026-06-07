@@ -54,7 +54,7 @@ export function Board({ state, dispatch }: Props) {
   const { positions, boardWidth, pathD } = useMemo(() => {
     const STEP_X = 220; // マスとマスの間隔
     
-    const pos = squares.map((sq, i) => {
+    const pos = squares.map((_, i) => {
       const x = 200 + i * STEP_X;
       // yはサインカーブでうねらせる
       const angle = i * 0.45;

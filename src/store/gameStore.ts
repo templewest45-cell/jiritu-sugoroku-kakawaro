@@ -1,6 +1,5 @@
 import type {
   GameState,
-  GamePhase,
   EventPhase,
   Player,
   DivisionId,
@@ -10,7 +9,6 @@ import type {
   Mission,
   Minigame,
   RandomEventType,
-  SquareType,
 } from '../types/game';
 import { generateSquares, TOTAL_SQUARES_COUNT } from '../utils/board';
 import { content1 } from '../data/content-1';
