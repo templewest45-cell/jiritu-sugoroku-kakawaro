@@ -1,0 +1,247 @@
+.event-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  text-align: center;
+}
+
+.event-modal__badge {
+  padding: 8px 24px;
+  border-radius: var(--radius-full);
+  font-size: 1.2rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  box-shadow: var(--shadow-sm);
+}
+
+.event-modal__badge--blue {
+  background: rgba(59, 130, 246, 0.2);
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  color: var(--color-blue-light);
+}
+
+.event-modal__badge--red {
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: var(--color-red-light);
+}
+
+.event-modal__badge--mission {
+  background: rgba(168, 85, 247, 0.2);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  color: #c4b5fd;
+}
+
+.event-modal__badge--random {
+  background: rgba(245, 158, 11, 0.2);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: var(--color-gold);
+}
+
+.event-modal__badge--minigame {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(240, 171, 252, 0.2));
+  border: 1px solid rgba(167, 139, 250, 0.4);
+  color: #c4b5fd;
+}
+
+.event-modal__player {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 2rem;
+  font-weight: 900;
+  background: rgba(0,0,0,0.2);
+  padding: 12px 32px;
+  border-radius: var(--radius-xl);
+  border: 2px solid rgba(255,255,255,0.1);
+}
+
+.event-modal__task {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--color-text);
+  line-height: 1.5;
+  max-width: 680px;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+  margin: 16px 0;
+}
+
+.event-modal__pts {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--color-red-light);
+}
+
+.event-modal__pts--big {
+  font-size: 2rem;
+  color: var(--color-gold);
+  text-shadow: 0 0 16px rgba(245, 158, 11, 0.6);
+}
+
+.event-modal__challenge-prompt {
+  font-size: 1.4rem;
+  color: var(--color-text-muted);
+  font-weight: bold;
+  border: 3px dashed rgba(255,255,255,0.2);
+  padding: 24px !important;
+  border-radius: var(--radius-lg);
+}
+
+.event-modal__assist {
+  width: 100%;
+  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: var(--radius-md);
+  padding: 16px;
+}
+
+.event-modal__assist-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-blue-light);
+  margin-bottom: 10px;
+}
+
+.event-modal__choices {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.event-modal__actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* 赤マス */
+.event-modal--red .event-modal__task {
+  color: var(--color-red-light);
+}
+
+/* ミッション */
+.event-modal__note-area {
+  width: 100%;
+}
+
+.event-modal__note-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  margin-bottom: 6px;
+  text-align: left;
+}
+
+.event-modal__note-input {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  color: var(--color-text);
+  font-size: 0.9rem;
+  font-family: 'Noto Sans JP', sans-serif;
+  resize: none;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.event-modal__note-input:focus {
+  border-color: rgba(168, 85, 247, 0.5);
+}
+
+/* ？マス */
+.event-modal__random-icon {
+  font-size: 4rem;
+  animation: bounce 1s ease infinite;
+}
+
+.event-modal__random-name {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: var(--color-gold);
+}
+
+.event-modal__target-selector {
+  width: 100%;
+}
+
+.event-modal__target-label {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-bottom: 10px;
+}
+
+.event-modal__target-btns {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.event-modal__target-btn {
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--p-color, rgba(255,255,255,0.2));
+  background: color-mix(in srgb, var(--p-color, #fff) 10%, transparent);
+  color: var(--color-text);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.event-modal__target-btn:hover, .event-modal__target-btn.selected {
+  background: color-mix(in srgb, var(--p-color, #fff) 25%, transparent);
+  transform: scale(1.05);
+}
+
+/* ゴール */
+.event-modal--goal {
+  background: linear-gradient(135deg, #1a1500, #1a1d2e);
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+.event-modal__confetti {
+  font-size: 2rem;
+  animation: bounce 0.5s ease infinite;
+  letter-spacing: 8px;
+}
+
+.event-modal__goal-icon {
+  font-size: 5rem;
+  animation: popIn 0.5s ease;
+  filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.8));
+}
+
+.event-modal__goal-text {
+  font-size: 2rem;
+  font-weight: 900;
+  background: var(--gradient-gold);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ミニゲーム */
+.event-modal__minigame-type {
+  font-size: 1.2rem;
+  color: var(--color-text-muted);
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
+.event-modal__minigame-name {
+  font-size: 2.8rem;
+  font-weight: 900;
+  background: var(--gradient-hero);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+}

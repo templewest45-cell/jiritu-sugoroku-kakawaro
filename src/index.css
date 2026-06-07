@@ -1,0 +1,248 @@
+/* ============================================================
+   自立活動すごろく - グローバルスタイル
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Fredoka+One&display=swap');
+
+:root {
+  /* カラーパレット */
+  --color-bg: #0f1117;
+  --color-surface: #1a1d2e;
+  --color-surface-2: #252840;
+  --color-border: rgba(255, 255, 255, 0.08);
+
+  /* ゲームカラー */
+  --color-blue: #3b82f6;
+  --color-blue-light: #60a5fa;
+  --color-red: #ef4444;
+  --color-red-light: #f87171;
+  --color-purple: #a855f7;
+  --color-gold: #f59e0b;
+  --color-green: #22c55e;
+  --color-yellow: #eab308;
+
+  /* テキスト */
+  --color-text: #f1f5f9;
+  --color-text-muted: #94a3b8;
+  --color-text-dim: #64748b;
+
+  /* グラデーション */
+  --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  --gradient-blue: linear-gradient(135deg, #2563eb, #60a5fa);
+  --gradient-red: linear-gradient(135deg, #dc2626, #f87171);
+  --gradient-purple: linear-gradient(135deg, #7c3aed, #a855f7);
+  --gradient-gold: linear-gradient(135deg, #d97706, #fcd34d);
+  --gradient-green: linear-gradient(135deg, #16a34a, #4ade80);
+
+  /* シャドウ */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.5);
+  --shadow-glow-blue: 0 0 20px rgba(59, 130, 246, 0.4);
+  --shadow-glow-purple: 0 0 20px rgba(168, 85, 247, 0.4);
+  --shadow-glow-gold: 0 0 20px rgba(245, 158, 11, 0.4);
+
+  /* サイズ */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 9999px;
+
+  /* フォント */
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'Noto Sans JP', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================
+   共通ボタン
+   ============================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: var(--radius-full);
+  border: none;
+  cursor: pointer;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.btn:active { transform: scale(0.96); }
+
+.btn-primary {
+  background: var(--gradient-hero);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.5);
+}
+.btn-primary:hover { filter: brightness(1.1); box-shadow: 0 6px 28px rgba(102,126,234,0.6); }
+
+.btn-blue {
+  background: var(--gradient-blue);
+  color: #fff;
+  box-shadow: var(--shadow-glow-blue);
+}
+.btn-blue:hover { filter: brightness(1.1); }
+
+.btn-green {
+  background: var(--gradient-green);
+  color: #fff;
+}
+.btn-green:hover { filter: brightness(1.1); }
+
+.btn-red {
+  background: var(--gradient-red);
+  color: #fff;
+}
+.btn-red:hover { filter: brightness(1.1); }
+
+.btn-gold {
+  background: var(--gradient-gold);
+  color: #fff;
+}
+.btn-gold:hover { filter: brightness(1.1); }
+
+.btn-ghost {
+  background: rgba(255,255,255,0.06);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.1); color: var(--color-text); }
+
+.btn-lg { padding: 16px 36px; font-size: 1.15rem; }
+.btn-sm { padding: 8px 16px; font-size: 0.875rem; }
+.btn-xl { padding: 20px 48px; font-size: 1.3rem; }
+
+/* ============================
+   モーダルオーバーレイ
+   ============================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-box {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 48px;
+  max-width: 800px;
+  width: 90%;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.8);
+  animation: popInModal 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+@keyframes popInModal {
+  0% { transform: scale(0.6) translateY(40px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* ============================
+   カード
+   ============================ */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+}
+
+/* ============================
+   テキストユーティリティ
+   ============================ */
+.text-center { text-align: center; }
+.text-muted { color: var(--color-text-muted); }
+.text-sm { font-size: 0.875rem; }
+.text-lg { font-size: 1.125rem; }
+.text-xl { font-size: 1.25rem; }
+.text-2xl { font-size: 1.5rem; }
+.text-3xl { font-size: 1.875rem; }
+.font-bold { font-weight: 700; }
+
+/* ============================
+   アニメーション
+   ============================ */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  20% { transform: translateX(-8px) rotate(-8deg); }
+  40% { transform: translateX(8px) rotate(8deg); }
+  60% { transform: translateX(-6px) rotate(-4deg); }
+  80% { transform: translateX(6px) rotate(4deg); }
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  70% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ============================
+   スクロールバー
+   ============================ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }

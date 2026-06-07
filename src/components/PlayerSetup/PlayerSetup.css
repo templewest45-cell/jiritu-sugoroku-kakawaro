@@ -1,0 +1,233 @@
+.player-setup {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 24px 20px 32px;
+  overflow-y: auto;
+  background: var(--color-bg);
+}
+
+/* ─── ヘッダー ─── */
+.player-setup__header {
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.player-setup__div-badge {
+  display: inline-block;
+  background: rgba(124, 58, 237, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.4);
+  color: #c4b5fd;
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.player-setup__title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.player-setup__sub {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+/* ─── 人数選択 ─── */
+.player-setup__count-selector {
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.player-setup__count-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  margin-bottom: 10px;
+  letter-spacing: 0.05em;
+}
+
+.player-setup__count-btns {
+  display: flex;
+  gap: 10px;
+}
+
+.player-setup__count-btn {
+  padding: 10px 22px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+.player-setup__count-btn:hover {
+  border-color: rgba(124, 58, 237, 0.5);
+  color: var(--color-text);
+}
+.player-setup__count-btn.active {
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.4);
+}
+
+.player-setup__start-btn {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  border: none;
+  padding: 1.5rem 4rem;
+  font-size: 2.5rem;
+  font-weight: 800;
+  border-radius: 100px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 3rem auto 0;
+}
+
+/* ─── プレイヤーカードリスト ─── */
+.player-setup__players {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 16px;
+  width: 100%;
+  max-width: 900px;
+  justify-content: center;
+}
+
+/* ─── 個別プレイヤーカード ─── */
+.player-setup__player-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  border: 2px solid #e2e8f0;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 380px;
+}
+
+.player-setup__card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.player-setup__color-badge {
+  display: inline-block;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 800;
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.04em;
+  align-self: flex-start;
+}
+
+.player-setup__input {
+  width: 100%;
+  padding: 1rem 1.2rem;
+  font-size: 1.8rem;
+  font-weight: bold;
+  border: 2px solid #cbd5e1;
+  border-radius: 12px;
+  background-color: #f8fafc;
+  color: #1e293b;
+  transition: all 0.2s ease;
+}
+
+/* ─── アバター選択グリッド ─── */
+.player-setup__avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.player-setup__avatar-btn {
+  background: #f8fafc;
+  border: 2px solid #cbd5e1;
+  border-radius: 16px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  position: relative;
+  overflow: hidden;
+}
+.player-setup__avatar-btn:hover {
+  border-color: color-mix(in srgb, var(--p-color) 60%, transparent);
+  background: color-mix(in srgb, var(--p-color) 10%, transparent);
+  transform: translateY(-2px);
+}
+.player-setup__avatar-btn.selected {
+  border-color: var(--p-color);
+  background: color-mix(in srgb, var(--p-color) 18%, transparent);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--p-color) 40%, transparent);
+}
+
+.player-setup__avatar-img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.player-setup__avatar-emoji {
+  font-size: 4rem;
+  line-height: 1;
+}
+
+.player-setup__avatar-label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #64748b;
+  transition: color 0.2s ease;
+}
+
+/* 選択チェックマーク */
+.player-setup__check-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  background: #ef4444;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+  animation: scaleIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* ─── 操作ボタン ─── */
+.player-setup__actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}

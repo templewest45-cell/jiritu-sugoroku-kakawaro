@@ -1,0 +1,136 @@
+.division-screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+  gap: 32px;
+  background: var(--color-bg);
+  overflow-y: auto;
+}
+
+.division-header {
+  text-align: center;
+}
+
+.division-title {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 900;
+  color: var(--color-text);
+  margin-bottom: 8px;
+}
+
+.division-subtitle {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+.division-cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.division-card {
+  flex: 1;
+  min-width: 240px;
+  max-width: 300px;
+  padding: 28px 24px;
+  border-radius: var(--radius-xl);
+  border: 2px solid transparent;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  background: var(--color-surface);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.division-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--card-gradient);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.division-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(255,255,255,0.2);
+  box-shadow: 0 16px 40px var(--card-shadow, rgba(0,0,0,0.3));
+}
+
+.division-card:hover::before { opacity: 0.12; }
+
+.division-card:active { transform: scale(0.97) translateY(-4px); }
+
+.division-card__number {
+  position: relative;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.06);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+.division-card__icon {
+  position: relative;
+  font-size: 3.5rem;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+  transition: transform 0.3s ease;
+}
+
+.division-card:hover .division-card__icon {
+  transform: scale(1.15) rotate(-5deg);
+}
+
+.division-card__name {
+  position: relative;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+.division-card__desc {
+  position: relative;
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.division-card__arrow {
+  position: relative;
+  font-size: 1.4rem;
+  font-weight: 700;
+  background: var(--card-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: transform 0.3s ease;
+}
+
+.division-card:hover .division-card__arrow {
+  transform: translateX(6px);
+}
+
+.division-note {
+  font-size: 0.8rem;
+  color: var(--color-text-dim);
+  text-align: center;
+  max-width: 500px;
+  line-height: 1.6;
+}

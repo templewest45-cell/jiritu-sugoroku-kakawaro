@@ -1,0 +1,264 @@
+.game-screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* 教室や青空をイメージした明るい背景 */
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+  font-family: 'M PLUS Rounded 1c', 'Noto Sans JP', sans-serif;
+}
+
+/* ─── ヘッダー ─── */
+.game-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 24px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  border-bottom: 4px solid rgba(255, 255, 255, 0.8);
+  flex-shrink: 0;
+  gap: 12px;
+  min-height: 72px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.game-header__left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  max-width: 240px;
+}
+
+.game-header__div-badge {
+  display: inline-block;
+  background: #fde047;
+  border: 2px solid #ca8a04;
+  color: #854d0e;
+  padding: 2px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  width: fit-content;
+  box-shadow: 0 2px 0 #ca8a04;
+}
+
+.game-header__div-name {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #451a03;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 4px;
+}
+
+/* ─── 中央：現在プレイヤー（リボン風） ─── */
+.game-header__current {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: #fff;
+  border: 4px solid color-mix(in srgb, var(--p-color) 60%, #e5e7eb);
+  border-radius: 40px;
+  padding: 6px 24px;
+  max-width: 420px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1), 0 4px 0 color-mix(in srgb, var(--p-color) 30%, #e5e7eb);
+  animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: translateY(-2px);
+}
+
+.game-header__current-avatar-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--p-color);
+  flex-shrink: 0;
+  background: #f3f4f6;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.game-header__current-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+.game-header__current-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+
+.game-header__current-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #9ca3af;
+  letter-spacing: 0.06em;
+}
+
+.game-header__current-name {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #1f2937;
+  white-space: nowrap;
+}
+
+.game-header__turn-badge {
+  font-size: 0.8rem;
+  font-weight: 900;
+  color: #fff;
+  background: #f87171;
+  border: 2px solid #dc2626;
+  border-radius: 12px;
+  padding: 4px 10px;
+  margin-left: 8px;
+  box-shadow: 0 2px 0 #dc2626;
+}
+
+/* ─── 右側：チームポイント ─── */
+.game-header__right {
+  flex-shrink: 0;
+  min-width: 100px;
+  text-align: right;
+  background: #fff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 3px solid #fcd34d;
+  box-shadow: 0 4px 0 #fbbf24;
+}
+
+.game-header__team-pts {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  justify-content: center;
+}
+
+.game-header__team-pts-label {
+  font-size: 0.7rem;
+  font-weight: 900;
+  color: #d97706;
+}
+
+.game-header__team-pts-value {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #d97706;
+  line-height: 1;
+}
+
+.game-header__team-pts-unit {
+  font-size: 0.9rem;
+  font-weight: 900;
+  color: #d97706;
+}
+
+/* ─── メインエリア ─── */
+.game-main {
+  flex: 1;
+  display: flex;
+  gap: 16px;
+  padding: 16px 20px 20px;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.game-board-area {
+  flex: 1;
+  overflow: hidden;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.game-side {
+  width: 320px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 4px;
+}
+
+/* ─── サイコロカード（木製棚風） ─── */
+.game-dice-card {
+  background: #fef3c7;
+  border: 8px solid #b45309;
+  border-radius: 24px;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  box-shadow: inset 0 0 16px rgba(139, 69, 19, 0.2), 0 8px 16px rgba(0,0,0,0.15);
+  position: relative;
+}
+
+.game-dice-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 16px;
+  background: rgba(0,0,0,0.05);
+  border-radius: 12px 12px 0 0;
+}
+
+.game-dice-card__title {
+  font-size: 0.9rem;
+  font-weight: 900;
+  color: #78350f;
+  letter-spacing: 0.05em;
+  background: #fff;
+  padding: 4px 16px;
+  border-radius: 16px;
+  border: 2px solid #b45309;
+  box-shadow: 0 2px 0 #b45309;
+  z-index: 1;
+}
+
+.game-move-btn {
+  width: 100%;
+  animation: pulse 1s ease infinite;
+  font-size: 1.1rem;
+  border-radius: 16px;
+  padding: 12px;
+  font-family: inherit;
+}
+
+/* ─── チーム表彰 ─── */
+.team-award {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  background: #fff;
+  border: 6px solid #fcd34d;
+  border-radius: 32px;
+  padding: 40px;
+  color: #451a03;
+}
+
+.team-award__icon {
+  font-size: 4rem;
+  animation: bounce 0.5s ease infinite;
+  letter-spacing: 8px;
+}
+
+.team-award__text {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #d97706;
+  line-height: 1.3;
+}
