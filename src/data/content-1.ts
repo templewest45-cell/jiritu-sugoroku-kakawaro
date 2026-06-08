@@ -40,8 +40,17 @@ export const content1: DivisionContent = {
     { id: 4, type: 'mic', name: '声の大きさコントロール', description: 'メーターが緑色に収まるように、声の大きさを調整して「こんにちは」と言ってみよう' },
     { id: 5, type: 'mic', name: 'せーので「いいね！」', description: '全員同時に「いいね！」と言って音量が揃ったら成功' },
     { id: 6, type: 'mic', name: 'しずかに伝えゲーム', description: 'できるだけ小さい声で隣の人に「今日の朝ごはん」を伝える。メーターが大きく動いたら失敗' },
-    { id: 7, type: 'input', name: '共通点探し', description: '全員が「好きなもの」を入力→かぶったら得点', inputType: 'text' },
-    { id: 8, type: 'input', name: '紹介リレー', description: '右隣の人の好きなものを入力して紹介→全員分一覧表示', inputType: 'text' },
+    { id: 7, type: 'input', name: '共通点探し', description: 'お題に沿って入力し、かぶったら得点！', inputType: 'text', scenarios: [
+      { text: '好きな食べ物' },
+      { text: '好きな動物' },
+      { text: '好きな色' },
+      { text: '好きな季節' }
+    ]},
+    { id: 8, type: 'input', name: '紹介リレー', description: 'お題に沿って右隣の人のことを入力して紹介しよう', inputType: 'text', scenarios: [
+      { text: '右隣の人の好きなもの（食べ物など）' },
+      { text: '右隣の人の「いいところ」' },
+      { text: '右隣の人の「得意そうなこと」' }
+    ]},
     { id: 9, type: 'input', name: '全員起立ゲーム', description: 'お題に当てはまる人がタップ→結果が画面に出る', inputType: 'button', scenarios: [
       { text: '朝ごはんにパンを食べてきた人！', choices: ['あてはまる！'] },
       { text: '犬より猫が好きな人！', choices: ['あてはまる！'] },
