@@ -161,7 +161,6 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       const content = state.divisionId ? getContent(state.divisionId) : content1;
 
       let currentEvent: GameState['currentEvent'] = { type: null, content: null };
-      let eventPhase: EventPhase = 'idle';
 
       const updatedPlayers = state.players.map((p, i) =>
         i === state.currentPlayerIndex ? { ...p, position: newPos, participationCount: p.participationCount + 1 } : p
@@ -171,19 +170,16 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         case 'blue': {
           const challenge: Challenge = pickRandom(content.challenges);
           currentEvent = { type: 'blue', content: challenge };
-          eventPhase = 'blueEvent';
           break;
         }
         case 'red': {
           const avoidanceTask = pickRandom(content.redAvoidanceTasks);
           currentEvent = { type: 'red', content: avoidanceTask };
-          eventPhase = 'redEvent';
           break;
         }
         case 'mission': {
           const mission: Mission = pickRandom(content.missions);
           currentEvent = { type: 'mission', content: mission };
-          eventPhase = 'missionEvent';
           break;
         }
         case 'random': {
@@ -193,16 +189,14 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
             randomTaskText = pickRandom(content.randomTasks[randomEventType as keyof typeof content.randomTasks]);
           }
           currentEvent = { type: 'random', content: randomTaskText ? { id: 0, text: randomTaskText } : null, randomEventType };
-          eventPhase = 'randomEvent';
           break;
         }
         case 'goal': {
           currentEvent = { type: 'goal', content: null };
-          eventPhase = 'goalCelebration';
           break;
         }
         default:
-          eventPhase = 'idle';
+          break;
       }
 
       return {

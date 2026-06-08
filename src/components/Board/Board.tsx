@@ -19,7 +19,7 @@ const LEGEND_ITEMS = [
   { type: 'goal',    label: '👑 ゴール',      desc: '到達で+20pt' },
 ];
 
-export function Board({ state, dispatch }: Props) {
+export function Board({ state }: Props) {
   const { squares, players, currentPlayerIndex, eventPhase } = state;
   const activePlayerRef = useRef<HTMLDivElement>(null);
   const scrollWrapperRef = useRef<HTMLDivElement>(null);
@@ -76,11 +76,7 @@ export function Board({ state, dispatch }: Props) {
     playersBySquare[p.position].push(p);
   });
 
-  const handleMoveComplete = () => {
-    // START_MOVE_ANIMATION はサイコロエリアから呼ぶのでここは削除するかSTART_MOVE_ANIMATIONにするか
-    // 現在の仕様では「🎲 ロール後」に「✅ Nマス進む！」ボタンでSTART_MOVE_ANIMATIONが走る。
-    // マスタップでのショートカットはアニメーションがバグるので無効化しておく。
-  };
+  // マスタップでの移動ショートカット機能はアニメーション追加のため削除しました。
 
   return (
     <div className="board-scroll-wrapper" ref={scrollWrapperRef}>
@@ -100,7 +96,6 @@ export function Board({ state, dispatch }: Props) {
         {squares.map((sq, i) => {
           const { x, y, rotate } = positions[i];
           const isCurrentPos = players[currentPlayerIndex]?.position === sq.id;
-          const playersHere = playersBySquare[sq.id] ?? [];
           const isMoving = eventPhase === 'moving' && isCurrentPos;
 
           return (
@@ -114,7 +109,6 @@ export function Board({ state, dispatch }: Props) {
                 transform: `translate(-50%, -50%) rotate(${rotate}deg)`
               } as React.CSSProperties}
               ref={isCurrentPos ? activePlayerRef : null}
-              onClick={isMoving ? handleMoveComplete : undefined}
             >
               {/* 装飾のピン/草など */}
               <div className="board-square__deco"></div>
