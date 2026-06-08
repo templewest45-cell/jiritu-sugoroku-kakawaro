@@ -26,6 +26,26 @@ export function EventModals({ state, dispatch }: Props) {
   const [teacherNote, setTeacherNote] = useState('');
   const [selectedTarget, setSelectedTarget] = useState<number | null>(null);
   
+  // タイムアタックマス用タイマー
+  const [timerStatus, setTimerStatus] = useState<'idle' | 'running' | 'done'>('idle');
+  const [timeLeft, setTimeLeft] = useState<number>(0);
+
+  useEffect(() => {
+    let timer: number;
+    if (timerStatus === 'running' && timeLeft > 0) {
+      timer = window.setInterval(() => {
+        setTimeLeft((prev) => {
+          if (prev <= 1) {
+            setTimerStatus('done');
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+    return () => window.clearInterval(timer);
+  }, [timerStatus, timeLeft]);
+  
   // カメラキャプチャ用
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -265,6 +285,7 @@ export function EventModals({ state, dispatch }: Props) {
   if (eventPhase === 'randomEvent' && currentEvent.randomEventType) {
     const ev = RANDOM_EVENT_INFO[currentEvent.randomEventType];
     const needsTarget = currentEvent.randomEventType === 'swap' || currentEvent.randomEventType === 'present' || currentEvent.randomEventType === 'nominate';
+    const isTimeEvent = currentEvent.randomEventType === 'time';
     const otherPlayers = players.filter((_, i) => i !== currentPlayerIndex);
 
     return (
@@ -280,6 +301,37 @@ export function EventModals({ state, dispatch }: Props) {
               <div className="event-modal__challenge-prompt" style={{ background: '#e0f2fe', padding: '16px', borderRadius: '12px', marginTop: '16px', fontWeight: 'bold', color: '#0369a1', fontSize: '1.2rem' }}>
                 💡 お題：<RubyText text={(currentEvent.content as { text: string }).text} />
               </div>
+              
+              {isTimeEvent && (
+                <div style={{ textAlign: 'center', margin: '20px 0', background: 'rgba(0,0,0,0.2)', padding: '24px', borderRadius: '16px', border: '2px dashed rgba(255,255,255,0.2)' }}>
+                  {timerStatus === 'idle' ? (
+                    <button 
+                      className="btn btn-blue btn-xl" 
+                      onClick={() => {
+                        const text = (currentEvent.content as { text: string })?.text || '';
+                        const match = text.match(/(\d+)\{?秒/);
+                        setTimeLeft(match ? parseInt(match[1], 10) : 10);
+                        setTimerStatus('running');
+                      }}
+                      style={{ animation: 'pulse 1.5s infinite' }}
+                    >
+                      ▶️ タイマーをスタート！
+                    </button>
+                  ) : (
+                    <div>
+                      <div style={{ fontSize: '4rem', fontWeight: '900', color: timeLeft <= 3 ? 'var(--color-red)' : 'var(--color-blue-light)', textShadow: '0 4px 12px rgba(0,0,0,0.5)', transition: 'color 0.3s' }}>
+                        ⏳ {timeLeft} 秒
+                      </div>
+                      {timerStatus === 'done' && (
+                        <div style={{ color: 'var(--color-red-light)', fontWeight: 'bold', fontSize: '1.8rem', animation: 'bounce 0.5s ease infinite', marginTop: '8px' }}>
+                          ⏰ 時間切れ！
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
+
               <div style={{ background: 'rgba(245, 158, 11, 0.1)', border: '2px solid rgba(245, 158, 11, 0.3)', padding: '12px 24px', borderRadius: '12px', color: 'var(--color-gold)', fontWeight: '900', fontSize: '1.4rem', margin: '16px 0' }}>
                 🎁 チャレンジ成功で: +5pt
               </div>
@@ -310,7 +362,7 @@ export function EventModals({ state, dispatch }: Props) {
           <div className="event-modal__actions">
             <button
               className="btn btn-gold btn-lg"
-              disabled={needsTarget && selectedTarget === null}
+              disabled={(needsTarget && selectedTarget === null) || (isTimeEvent && timerStatus === 'idle')}
               onClick={() => {
                 const isTaskEvent = !!currentEvent.content;
                 dispatch({ 
@@ -321,6 +373,7 @@ export function EventModals({ state, dispatch }: Props) {
                   } 
                 });
                 setSelectedTarget(null);
+                setTimerStatus('idle');
               }}
             >
               決定・完了！
