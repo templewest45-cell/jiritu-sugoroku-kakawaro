@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import type { GameAction } from '../../store/gameStore';
+import type { Minigame } from '../../types/game';
 import { content1 } from '../../data/content-1';
 import { content2 } from '../../data/content-2';
 import { content3 } from '../../data/content-3';
+import { EventModals } from '../EventModals/EventModals';
 import './TeacherGuide.css';
 
 interface Props {
@@ -11,6 +14,23 @@ interface Props {
 const allContents = [content1, content2, content3];
 
 export function TeacherGuide({ dispatch }: Props) {
+  const [testMinigame, setTestMinigame] = useState<Minigame | null>(null);
+
+  // テスト用のダミー状態
+  const mockState: any = {
+    eventPhase: 'minigame',
+    pendingMinigame: testMinigame,
+    players: [
+      { id: 't1', name: '先生1', emoji: '🧑‍🏫', color: '#3b82f6', position: 0, participationCount: 0, avatarUrl: '/assets/avatars/1.png' },
+      { id: 't2', name: '先生2', emoji: '👩‍🏫', color: '#ef4444', position: 0, participationCount: 0, avatarUrl: '/assets/avatars/2.png' }
+    ],
+    currentPlayerIndex: 0,
+    currentEvent: { type: null, content: null },
+    assistMode: false,
+    teamPoints: 0,
+    turn: 1
+  };
+
   return (
     <div className="teacher-guide">
       <div className="teacher-guide__header">
@@ -82,9 +102,20 @@ export function TeacherGuide({ dispatch }: Props) {
                 <h4 className="guide-card__title">🎮 実装済みミニゲーム ({content.minigames.length}種)</h4>
                 <ul className="guide-list">
                   {content.minigames.map(mg => (
-                    <li key={mg.id}>
-                      <span className="mg-type">[{mg.type === 'camera' ? '📷 カメラ' : mg.type === 'mic' ? '🎤 マイク' : '👆 タップ'}]</span>
-                      <strong>{mg.name}</strong>
+                    <li key={mg.id} style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <div>
+                          <span className="mg-type">[{mg.type === 'camera' ? '📷 カメラ' : mg.type === 'mic' ? '🎤 マイク' : '👆 タップ'}]</span>
+                          <strong>{mg.name}</strong>
+                        </div>
+                        <button 
+                          className="btn btn-primary" 
+                          style={{ padding: '4px 12px', fontSize: '0.9rem' }}
+                          onClick={() => setTestMinigame(mg)}
+                        >
+                          ▶️ テストプレイ
+                        </button>
+                      </div>
                       <p>{mg.description}</p>
                     </li>
                   ))}
@@ -124,6 +155,17 @@ export function TeacherGuide({ dispatch }: Props) {
           </div>
         ))}
       </div>
+
+      {testMinigame && (
+        <EventModals 
+          state={mockState} 
+          dispatch={(action) => {
+            if (action.type === 'MINIGAME_DONE') {
+              setTestMinigame(null);
+            }
+          }} 
+        />
+      )}
     </div>
   );
 }
