@@ -146,3 +146,25 @@
   font-size: 0.8rem;
   letter-spacing: 0.05em;
 }
+
+/* 画面の高さが低い端末（iPadのランドスケープなど）向けに縮小 */
+@media (max-height: 850px) {
+  .title-content {
+    gap: 16px;
+    transform: scale(0.9);
+  }
+}
+
+@media (max-height: 700px) {
+  .title-content {
+    gap: 12px;
+    transform: scale(0.8);
+  }
+}
+
+@media (max-height: 600px) {
+  .title-content {
+    gap: 8px;
+    transform: scale(0.7);
+  }
+}
