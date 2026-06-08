@@ -82,7 +82,10 @@ export type GameAction =
   | { type: 'START_GAME' }
   | { type: 'ROLL_DICE' }
   | { type: 'DICE_RESULT'; value: number }
+  | { type: 'START_MOVE_ANIMATION' }
+  | { type: 'STEP_MOVE' }
   | { type: 'MOVE_COMPLETE' }
+  | { type: 'SHOW_EVENT' }
   | { type: 'BLUE_SUCCESS' }
   | { type: 'BLUE_SKIP' }
   | { type: 'RED_AVOID' }
@@ -139,9 +142,21 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
     case 'DICE_RESULT':
       return { ...state, lastDiceValue: action.value, eventPhase: 'moving' };
 
+    case 'START_MOVE_ANIMATION':
+      return { ...state, eventPhase: 'animatingMove' };
+
+    case 'STEP_MOVE': {
+      const player = state.players[state.currentPlayerIndex];
+      const newPos = Math.min(player.position + 1, TOTAL_SQUARES_COUNT - 1);
+      const players = state.players.map((p, i) =>
+        i === state.currentPlayerIndex ? { ...p, position: newPos } : p
+      );
+      return { ...state, players };
+    }
+
     case 'MOVE_COMPLETE': {
       const player = state.players[state.currentPlayerIndex];
-      const newPos = Math.min(player.position + (state.lastDiceValue ?? 0), TOTAL_SQUARES_COUNT - 1);
+      const newPos = player.position;
       const square = state.squares[newPos];
       const content = state.divisionId ? getContent(state.divisionId) : content1;
 
@@ -194,8 +209,20 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         ...state,
         players: updatedPlayers,
         currentEvent,
-        eventPhase,
+        eventPhase: 'arrived', // アニメーション後に止まったことを表示
       };
+    }
+
+    case 'SHOW_EVENT': {
+      let eventPhase: EventPhase = 'idle';
+      switch (state.currentEvent.type) {
+        case 'blue': eventPhase = 'blueEvent'; break;
+        case 'red': eventPhase = 'redEvent'; break;
+        case 'mission': eventPhase = 'missionEvent'; break;
+        case 'random': eventPhase = 'randomEvent'; break;
+        case 'goal': eventPhase = 'goalCelebration'; break;
+      }
+      return { ...state, eventPhase };
     }
 
     case 'BLUE_SUCCESS': {

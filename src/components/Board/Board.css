@@ -187,23 +187,9 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-/* ─── プレイヤーコマ群（マスの上に巨大化して立つ） ─── */
-.board-square__pieces {
+/* ─── プレイヤーコマ群（絶対配置） ─── */
+.board-piece-absolute {
   position: absolute;
-  /* マスの上部に立つように */
-  bottom: 50%;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  z-index: 30;
-  pointer-events: none;
-}
-
-.board-piece {
-  position: relative;
-  /* キャラクターをドカンと大きく！ */
   width: 60px;
   height: 90px;
   border-radius: 12px;
@@ -211,8 +197,24 @@
   box-shadow: 0 8px 16px rgba(0,0,0,0.5), 0 0 0 3px var(--p-color);
   background: color-mix(in srgb, var(--p-color) 20%, #fff);
   overflow: visible;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* 左/上の移動を滑らかにアニメーション！ */
+  transition: left 0.4s ease-in-out, top 0.4s ease-in-out, transform 0.3s ease;
   transform-origin: bottom center;
+  /* 中心位置をマスの中央下部に合わせる。Y軸はマスの上に立つように-100%から微調整 */
+  transform: translate(-50%, -90%);
+}
+
+.board-piece-absolute--active {
+  width: 80px;
+  height: 120px;
+  border-width: 6px;
+  box-shadow: 0 16px 32px rgba(0,0,0,0.6), 0 0 0 4px #fbbf24;
+  animation: playerBounceAbs 1.5s ease-in-out infinite;
+}
+
+@keyframes playerBounceAbs {
+  0%, 100% { transform: translate(-50%, -90%) translateY(-10px); }
+  50% { transform: translate(-50%, -90%) translateY(-20px); }
 }
 
 .board-piece__img {
@@ -222,22 +224,6 @@
   object-position: top center;
   display: block;
   border-radius: 8px;
-}
-
-/* アクティブなプレイヤーはさらに巨大化して目立つ */
-.board-piece--active {
-  width: 80px;
-  height: 120px;
-  transform: translateY(-10px);
-  border-width: 6px;
-  box-shadow: 0 16px 32px rgba(0,0,0,0.6), 0 0 0 4px #fbbf24;
-  z-index: 40;
-  animation: playerBounce 1.5s ease-in-out infinite;
-}
-
-@keyframes playerBounce {
-  0%, 100% { transform: translateY(-10px); }
-  50% { transform: translateY(-20px); }
 }
 
 .board-piece__arrow {

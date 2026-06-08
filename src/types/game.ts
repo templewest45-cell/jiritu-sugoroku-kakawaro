@@ -89,6 +89,8 @@ export type EventPhase =
   | 'idle'
   | 'rolling'
   | 'moving'
+  | 'animatingMove'
+  | 'arrived'
   | 'blueEvent'
   | 'redEvent'
   | 'missionEvent'

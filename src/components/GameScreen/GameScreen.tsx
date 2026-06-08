@@ -6,6 +6,8 @@ import { Dice } from '../Dice/Dice';
 import { ScoreBoard } from '../ScoreBoard/ScoreBoard';
 import { EventModals } from '../EventModals/EventModals';
 import { getContent } from '../../store/gameStore';
+import { SQUARE_NAMES, SQUARE_ICONS } from '../../utils/board';
+import { useEffect } from 'react';
 
 interface Props {
   state: GameState;
@@ -30,6 +32,27 @@ export function GameScreen({ state, dispatch }: Props) {
   const isIdle = eventPhase === 'idle';
   const isMoving = eventPhase === 'moving';
   const isRolling = eventPhase === 'rolling';
+
+  useEffect(() => {
+    if (eventPhase === 'animatingMove') {
+      let stepsLeft = lastDiceValue ?? 0;
+      if (stepsLeft <= 0) {
+        dispatch({ type: 'MOVE_COMPLETE' });
+        return;
+      }
+      const interval = setInterval(() => {
+        dispatch({ type: 'STEP_MOVE' });
+        stepsLeft--;
+        if (stepsLeft <= 0) {
+          clearInterval(interval);
+          setTimeout(() => {
+            dispatch({ type: 'MOVE_COMPLETE' });
+          }, 500); // 0.5秒待ってから到着判定
+        }
+      }, 500); // 1マス0.5秒で移動
+      return () => clearInterval(interval);
+    }
+  }, [eventPhase, lastDiceValue, dispatch]);
 
   return (
     <div className="game-screen">
@@ -93,7 +116,7 @@ export function GameScreen({ state, dispatch }: Props) {
             {isMoving && (
               <button
                 className="btn btn-gold btn-lg game-move-btn"
-                onClick={() => dispatch({ type: 'MOVE_COMPLETE' })}
+                onClick={() => dispatch({ type: 'START_MOVE_ANIMATION' })}
               >
                 ✅ {lastDiceValue}マス進む！
               </button>
@@ -114,6 +137,26 @@ export function GameScreen({ state, dispatch }: Props) {
 
       {/* イベントモーダル */}
       <EventModals state={state} dispatch={dispatch} />
+
+      {/* 止まったマスの確認 */}
+      {eventPhase === 'arrived' && state.currentEvent.type && (
+        <div className="modal-overlay">
+          <div className="modal-box text-center" style={{ maxWidth: '400px' }}>
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#1e293b' }}>
+              {SQUARE_NAMES[state.currentEvent.type]} にとまった！
+            </h2>
+            <div style={{ fontSize: '4rem', margin: '1rem 0' }}>
+              {SQUARE_ICONS[state.currentEvent.type]}
+            </div>
+            <button
+              className="btn btn-primary btn-lg mt-4"
+              onClick={() => dispatch({ type: 'SHOW_EVENT' })}
+            >
+              イベントを見る
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* チーム表彰 */}
       {showTeamAward && (

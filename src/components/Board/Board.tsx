@@ -8,33 +8,7 @@ interface Props {
   dispatch: React.Dispatch<GameAction>;
 }
 
-// マスの色（さらに温かみのある鮮やかな絵本カラーへ）
-const SQUARE_COLORS: Record<string, string> = {
-  start:   '#86efac', // フレッシュグリーン
-  goal:    '#fde047', // ゴールドイエロー
-  blue:    '#93c5fd', // スカイブルー
-  red:     '#fca5a5', // コーラルピンク
-  mission: '#fdba74', // マンダリンオレンジ
-  random:  '#d8b4fe', // マジカルパープル
-};
-
-const SQUARE_NAMES: Record<string, string> = {
-  start:   'スタート',
-  goal:    'ゴール',
-  blue:    'せいこう',
-  red:     'マイナス',
-  mission: 'みんなで',
-  random:  'なにかな',
-};
-
-const SQUARE_ICONS: Record<string, string> = {
-  start:   '🚩',
-  goal:    '👑',
-  blue:    '⭐',
-  red:     '✖',
-  mission: '🤝',
-  random:  '❓',
-};
+import { SQUARE_COLORS, SQUARE_NAMES, SQUARE_ICONS } from '../../utils/board';
 
 // 凡例
 const LEGEND_ITEMS = [
@@ -103,9 +77,9 @@ export function Board({ state, dispatch }: Props) {
   });
 
   const handleMoveComplete = () => {
-    if (eventPhase === 'moving') {
-      dispatch({ type: 'MOVE_COMPLETE' });
-    }
+    // START_MOVE_ANIMATION はサイコロエリアから呼ぶのでここは削除するかSTART_MOVE_ANIMATIONにするか
+    // 現在の仕様では「🎲 ロール後」に「✅ Nマス進む！」ボタンでSTART_MOVE_ANIMATIONが走る。
+    // マスタップでのショートカットはアニメーションがバグるので無効化しておく。
   };
 
   return (
@@ -154,27 +128,38 @@ export function Board({ state, dispatch }: Props) {
                 <span className="board-square__name">{SQUARE_NAMES[sq.type]}</span>
               </div>
 
-              {/* プレイヤーコマ（マスの上に大きく立たせる） */}
-              {playersHere.length > 0 && (
-                <div className="board-square__pieces" style={{ transform: `rotate(${-rotate}deg)` }}>
-                  {playersHere.map(p => (
-                    <div
-                      key={p.id}
-                      className={`board-piece ${p.id === players[currentPlayerIndex].id ? 'board-piece--active' : ''}`}
-                      style={{ '--p-color': p.color } as React.CSSProperties}
-                      title={p.name}
-                    >
-                      <img src={p.avatarUrl} alt={p.name} className="board-piece__img" />
-                      {/* アクティブプレイヤーには矢印マーク */}
-                      {p.id === players[currentPlayerIndex].id && <div className="board-piece__arrow">▼</div>}
-                    </div>
-                  ))}
-                </div>
-              )}
+              {/* プレイヤーコマ（以前ここにあった部分は外に出す） */}
 
               {isMoving && (
                 <div className="board-square__move-overlay">タップ！</div>
               )}
+            </div>
+          );
+        })}
+
+        {/* プレイヤーコマ群（絶対配置で滑らかに移動させる） */}
+        {players.map(p => {
+          const { x, y } = positions[p.position];
+          const playersHere = playersBySquare[p.position] ?? [];
+          const pIndex = playersHere.findIndex(ph => ph.id === p.id);
+          const totalHere = playersHere.length;
+          const offsetX = totalHere > 1 ? (pIndex - (totalHere - 1) / 2) * 20 : 0;
+          const isActive = p.id === players[currentPlayerIndex].id;
+
+          return (
+            <div
+              key={p.id}
+              className={`board-piece-absolute ${isActive ? 'board-piece-absolute--active' : ''}`}
+              style={{
+                '--p-color': p.color,
+                left: `${x + offsetX}px`,
+                top: `${y}px`,
+                zIndex: isActive ? 1000 : 100 + p.position,
+              } as React.CSSProperties}
+              title={p.name}
+            >
+              <img src={p.avatarUrl} alt={p.name} className="board-piece__img" />
+              {isActive && <div className="board-piece__arrow">▼</div>}
             </div>
           );
         })}

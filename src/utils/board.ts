@@ -1,5 +1,32 @@
 import type { Square, SquareType } from '../types/game';
 
+export const SQUARE_COLORS: Record<string, string> = {
+  start:   '#86efac',
+  goal:    '#fde047',
+  blue:    '#93c5fd',
+  red:     '#fca5a5',
+  mission: '#fdba74',
+  random:  '#d8b4fe',
+};
+
+export const SQUARE_NAMES: Record<string, string> = {
+  start:   'スタート',
+  goal:    'ゴール',
+  blue:    'せいこう',
+  red:     'マイナス',
+  mission: 'みんなで',
+  random:  'なにかな',
+};
+
+export const SQUARE_ICONS: Record<string, string> = {
+  start:   '🚩',
+  goal:    '👑',
+  blue:    '⭐',
+  red:     '✖',
+  mission: '🤝',
+  random:  '❓',
+};
+
 // 30マス（スタート + 28マス + ゴール）の蛇行型ボード
 // 1行あたり6マス × 5行
 const COLS = 6;
