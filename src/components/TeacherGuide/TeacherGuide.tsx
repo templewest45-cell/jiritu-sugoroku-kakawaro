@@ -13,6 +13,8 @@ interface Props {
 
 const allContents = [content1, content2, content3];
 
+const stripRuby = (text: string) => text.replace(/\{([^|]+)\|[^}]+\}/g, '$1');
+
 export function TeacherGuide({ dispatch }: Props) {
   const [testMinigame, setTestMinigame] = useState<Minigame | null>(null);
 
@@ -128,7 +130,7 @@ export function TeacherGuide({ dispatch }: Props) {
                 <p className="guide-card__desc">※全員参加型・協力型の課題</p>
                 <ul className="guide-list">
                   {content.missions.map(ms => (
-                    <li key={ms.id}>{ms.text}</li>
+                    <li key={ms.id}>{stripRuby(ms.text)}</li>
                   ))}
                 </ul>
               </div>
@@ -139,7 +141,7 @@ export function TeacherGuide({ dispatch }: Props) {
                 <p className="guide-card__desc">※赤マスで減点を回避するためのリフレッシュ行動</p>
                 <ul className="guide-list">
                   {content.redAvoidanceTasks.map(rt => (
-                    <li key={rt.id}>{rt.text}</li>
+                    <li key={rt.id}>{stripRuby(rt.text)}</li>
                   ))}
                 </ul>
               </div>
@@ -149,10 +151,10 @@ export function TeacherGuide({ dispatch }: Props) {
                 <h4 className="guide-card__title">❓ ランダムイベント (黄マス)</h4>
                 <p className="guide-card__desc">※「協力」「多数決」「タイムアタック」「指名」などのイベント</p>
                 <ul className="guide-list" style={{ fontSize: '0.9rem' }}>
-                  <li><strong>🤝 協力:</strong> {content.randomTasks.cooperate.join(' / ')}</li>
-                  <li><strong>🗳️ 多数決:</strong> {content.randomTasks.vote.join(' / ')}</li>
-                  <li><strong>⏱️ 時間:</strong> {content.randomTasks.time.join(' / ')}</li>
-                  <li><strong>👉 指名:</strong> {content.randomTasks.nominate.join(' / ')}</li>
+                  <li><strong>🤝 協力:</strong> {content.randomTasks.cooperate.map(stripRuby).join(' / ')}</li>
+                  <li><strong>🗳️ 多数決:</strong> {content.randomTasks.vote.map(stripRuby).join(' / ')}</li>
+                  <li><strong>⏱️ 時間:</strong> {content.randomTasks.time.map(stripRuby).join(' / ')}</li>
+                  <li><strong>👉 指名:</strong> {content.randomTasks.nominate.map(stripRuby).join(' / ')}</li>
                 </ul>
               </div>
 
@@ -163,12 +165,12 @@ export function TeacherGuide({ dispatch }: Props) {
                 <div className="guide-grid-columns">
                   <ul className="guide-list">
                     {content.challenges.slice(0, 8).map(ch => (
-                      <li key={ch.id}>{ch.text}</li>
+                      <li key={ch.id}>{stripRuby(ch.text)}</li>
                     ))}
                   </ul>
                   <ul className="guide-list">
                     {content.challenges.slice(8).map(ch => (
-                      <li key={ch.id}>{ch.text}</li>
+                      <li key={ch.id}>{stripRuby(ch.text)}</li>
                     ))}
                   </ul>
                 </div>
