@@ -40,10 +40,14 @@ export const content1: DivisionContent = {
     { id: 4, type: 'mic', name: '声の大きさコントロール', description: 'メーターが緑色に収まるように、声の大きさを調整して「こんにちは」と言ってみよう' },
     { id: 5, type: 'mic', name: 'せーので「いいね！」', description: '全員同時に「いいね！」と言って音量が揃ったら成功' },
     { id: 6, type: 'mic', name: 'しずかに伝えゲーム', description: 'できるだけ小さい声で隣の人に「今日の朝ごはん」を伝える。メーターが大きく動いたら失敗' },
-    { id: 7, type: 'input', name: '共通点探し', description: '全員が「好きなもの」を入力→かぶったら得点' },
-    { id: 8, type: 'input', name: '紹介リレー', description: '右隣の人の好きなものを入力して紹介→全員分一覧表示' },
-    { id: 9, type: 'input', name: '全員起立ゲーム', description: 'お題に当てはまる人がタップ→結果が画面に出る' },
-    { id: 10, type: 'input', name: 'あいうえお自己紹介', description: '名前の最初の文字から始まる好きなものを入力→全員分表示' },
+    { id: 7, type: 'input', name: '共通点探し', description: '全員が「好きなもの」を入力→かぶったら得点', inputType: 'text' },
+    { id: 8, type: 'input', name: '紹介リレー', description: '右隣の人の好きなものを入力して紹介→全員分一覧表示', inputType: 'text' },
+    { id: 9, type: 'input', name: '全員起立ゲーム', description: 'お題に当てはまる人がタップ→結果が画面に出る', inputType: 'button', scenarios: [
+      { text: '朝ごはんにパンを食べてきた人！', choices: ['あてはまる！'] },
+      { text: '犬より猫が好きな人！', choices: ['あてはまる！'] },
+      { text: '今日、自分から「おはよう」と言えた人！', choices: ['あてはまる！'] }
+    ]},
+    { id: 10, type: 'input', name: 'あいうえお自己紹介', description: '名前の最初の文字から始まる好きなものを入力→全員分表示', inputType: 'text' },
   ],
   redAvoidanceTasks: [
     { id: 1, text: '目を閉じて、ゆっくり深呼吸を3回しよう' },

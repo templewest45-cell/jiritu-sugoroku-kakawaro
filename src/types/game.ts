@@ -59,6 +59,8 @@ export interface Minigame {
   type: MinigameType;
   name: string;
   description: string;
+  inputType?: 'text' | 'choice' | 'slider' | 'button';
+  scenarios?: { text: string; choices?: string[] }[];
 }
 
 export interface DivisionContent {

@@ -40,10 +40,14 @@ export const content3: DivisionContent = {
     { id: 4, type: 'mic', name: '深呼吸チャレンジ', description: '全員で深呼吸→メーターが全く動かないくらい静かに息を吐けるか挑戦！' },
     { id: 5, type: 'mic', name: '気持ちを言葉にゲーム', description: '今の気持ちを一言で言う→メーターの動きを見て、声が大きすぎないか確認しよう' },
     { id: 6, type: 'mic', name: '声のコントロール', description: 'わざと大きな声を出した後、深呼吸をしてメーターが動かないくらい静かな声を出してみよう' },
-    { id: 7, type: 'input', name: '自己紹介カード入力', description: '得意・苦手・好き・嫌いを入力→画面にカードとして表示' },
-    { id: 8, type: 'input', name: '気持ちの温度計', description: '今の気持ちを0〜100でタップ→全員分グラフで表示' },
-    { id: 9, type: 'input', name: '行動選択クイズ', description: '「こんなときどうする？」を3択でタップ→全員の回答を比べる' },
-    { id: 10, type: 'input', name: '今日の振り返り入力', description: '「できたこと」「むずかしかったこと」を入力→セッション記録に残す' },
+    { id: 7, type: 'input', name: '自己紹介カード入力', description: '得意・苦手・好き・嫌いを入力→画面にカードとして表示', inputType: 'text' },
+    { id: 8, type: 'input', name: '気持ちの温度計', description: '今の気持ちを0〜100でタップ→全員分グラフで表示', inputType: 'slider' },
+    { id: 9, type: 'input', name: '行動選択クイズ', description: '「こんなときどうする？」を3択でタップ→全員の回答を比べる', inputType: 'choice', scenarios: [
+      { text: 'おなかが痛くなりました。', choices: ['先生にいう', 'がまんする', '家に帰る'] },
+      { text: '友達とケンカしました。', choices: ['あやまる', '無視する', '別の友達と遊ぶ'] },
+      { text: 'わからない問題がありました。', choices: ['質問する', 'とばす', 'あきらめる'] }
+    ]},
+    { id: 10, type: 'input', name: '今日の振り返り入力', description: '「できたこと」「むずかしかったこと」を入力→セッション記録に残す', inputType: 'text' },
   ],
   redAvoidanceTasks: [
     { id: 1, text: '目を閉じて、ゆっくり深呼吸を3回しよう' },

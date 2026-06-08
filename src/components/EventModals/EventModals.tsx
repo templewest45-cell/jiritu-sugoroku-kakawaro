@@ -43,6 +43,7 @@ export function EventModals({ state, dispatch }: Props) {
   const [showInputResult, setShowInputResult] = useState(false);
   const [inputVisibility, setInputVisibility] = useState<Record<number, boolean>>({});
   const [inputRewards, setInputRewards] = useState<{ playerIndex: number; points: number }[]>([]);
+  const [currentScenario, setCurrentScenario] = useState<{ text: string; choices?: string[] } | null>(null);
 
   // カメラ・マイクのクリーンアップ＆初期化
   useEffect(() => {
@@ -56,6 +57,16 @@ export function EventModals({ state, dispatch }: Props) {
           }
         })
         .catch(err => console.error('Camera error:', err));
+    }
+
+    // お題設定
+    if (eventPhase === 'minigame' && pendingMinigame?.type === 'input') {
+      if (pendingMinigame.scenarios && pendingMinigame.scenarios.length > 0) {
+        const randomScen = pendingMinigame.scenarios[Math.floor(Math.random() * pendingMinigame.scenarios.length)];
+        setCurrentScenario(randomScen);
+      } else {
+        setCurrentScenario(null);
+      }
     }
 
     // マイク
@@ -407,33 +418,71 @@ export function EventModals({ state, dispatch }: Props) {
 
           {pendingMinigame.type === 'input' && (
             <div className="event-modal__input-area" style={{ width: '100%', margin: '20px 0', textAlign: 'left' }}>
+              {currentScenario && (
+                <div style={{ background: 'rgba(59, 130, 246, 0.2)', padding: '16px', borderRadius: '12px', marginBottom: '20px', fontWeight: 'bold', fontSize: '1.2rem', color: '#eff6ff', border: '1px solid rgba(59, 130, 246, 0.4)' }}>
+                  💡 お題: {currentScenario.text}
+                </div>
+              )}
               {!showInputResult ? (
                 <>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                     {players.map((p, i) => (
                       <div key={p.id} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                         <span style={{ fontSize: '2rem' }}>{p.emoji}</span>
-                        <div style={{ position: 'relative', flex: 1 }}>
-                          <input
-                            type={inputVisibility[i] ? "text" : "password"}
-                            value={inputs[i] || ''}
-                            onChange={(e) => setInputs({ ...inputs, [i]: e.target.value })}
-                            placeholder={`${p.name}さんの回答 (隠れます)`}
-                            style={{ 
-                              width: '100%', padding: '16px', paddingRight: '48px', borderRadius: '12px', border: '2px solid rgba(255,255,255,0.2)', 
-                              background: 'rgba(0,0,0,0.3)', color: '#fff', fontSize: '1.2rem', fontFamily: 'inherit'
-                            }}
-                          />
-                          <button
-                            onClick={() => setInputVisibility({ ...inputVisibility, [i]: !inputVisibility[i] })}
-                            style={{
-                              position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)',
-                              background: 'none', border: 'none', color: 'var(--color-text-muted)', fontSize: '1.5rem', cursor: 'pointer'
-                            }}
-                            title={inputVisibility[i] ? "文字を隠す" : "文字を見る"}
-                          >
-                            {inputVisibility[i] ? "👁️" : "🙈"}
-                          </button>
+                        <div style={{ position: 'relative', flex: 1, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          
+                          {(!pendingMinigame.inputType || pendingMinigame.inputType === 'text') && (
+                            <>
+                              <input
+                                type={inputVisibility[i] ? "text" : "password"}
+                                value={inputs[i] || ''}
+                                onChange={(e) => setInputs({ ...inputs, [i]: e.target.value })}
+                                placeholder={`${p.name}さんの回答 (隠れます)`}
+                                style={{ 
+                                  width: '100%', padding: '16px', paddingRight: '48px', borderRadius: '12px', border: '2px solid rgba(255,255,255,0.2)', 
+                                  background: 'rgba(0,0,0,0.3)', color: '#fff', fontSize: '1.2rem', fontFamily: 'inherit'
+                                }}
+                              />
+                              <button
+                                onClick={() => setInputVisibility({ ...inputVisibility, [i]: !inputVisibility[i] })}
+                                style={{
+                                  position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)',
+                                  background: 'none', border: 'none', color: 'var(--color-text-muted)', fontSize: '1.5rem', cursor: 'pointer'
+                                }}
+                                title={inputVisibility[i] ? "文字を隠す" : "文字を見る"}
+                              >
+                                {inputVisibility[i] ? "👁️" : "🙈"}
+                              </button>
+                            </>
+                          )}
+
+                          {pendingMinigame.inputType === 'slider' && (
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: 1, background: 'rgba(0,0,0,0.3)', padding: '12px 16px', borderRadius: '12px', border: '2px solid rgba(255,255,255,0.2)' }}>
+                              <input 
+                                type="range" min="0" max="100" 
+                                value={inputs[i] || '50'} 
+                                onChange={(e) => setInputs({ ...inputs, [i]: e.target.value })} 
+                                style={{ flex: 1 }} 
+                              />
+                              <span style={{ fontSize: '1.2rem', fontWeight: 'bold', width: '40px', textAlign: 'right' }}>{inputs[i] || '50'}</span>
+                            </div>
+                          )}
+
+                          {(pendingMinigame.inputType === 'choice' || pendingMinigame.inputType === 'button') && currentScenario?.choices && (
+                            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', flex: 1 }}>
+                              {currentScenario.choices.map(choice => (
+                                <button
+                                  key={choice}
+                                  onClick={() => setInputs({ ...inputs, [i]: inputs[i] === choice ? '' : choice })}
+                                  className={`btn ${inputs[i] === choice ? 'btn-blue' : 'btn-ghost'}`}
+                                  style={{ flex: 1, padding: '12px 8px', fontSize: '1.1rem', border: '2px solid rgba(255,255,255,0.3)', background: inputs[i] === choice ? 'var(--color-blue)' : 'rgba(0,0,0,0.3)', minWidth: '100px' }}
+                                >
+                                  {choice}
+                                </button>
+                              ))}
+                            </div>
+                          )}
+
                         </div>
                       </div>
                     ))}

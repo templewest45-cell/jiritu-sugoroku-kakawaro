@@ -40,10 +40,20 @@ export const content2: DivisionContent = {
     { id: 4, type: 'mic', name: '言い方チェンジゲーム', description: '同じ「おはよう」を「やさしく」「つよく」「悲しそうに」言い分けてみよう' },
     { id: 5, type: 'mic', name: '声のトーン当て', description: '代表者がお題の感情（怒り・悲しみ・喜び等）で声を出し、みんなで当てよう（アプリの判定ではなくみんなで相談）' },
     { id: 6, type: 'mic', name: 'ちょうどいい声で伝えゲーム', description: 'メーターを見ながら、大きすぎず小さすぎない声で「ありがとう」を伝える' },
-    { id: 7, type: 'input', name: '気持ち選択クイズ', description: '場面を読んで登場人物の気持ちを4択でタップ→全員の回答を表示' },
-    { id: 8, type: 'input', name: '共感メッセージ', description: '友達の発表を聞いて「一言コメント」を入力→画面に並べて表示' },
-    { id: 9, type: 'input', name: '感情ラベリング', description: '表示された場面に当てはまる感情をタップして選ぶ' },
-    { id: 10, type: 'input', name: 'リアクション選び', description: '「友達が困った場面に自分ならどうする？」を選択肢からタップ' },
+    { id: 7, type: 'input', name: '気持ち選択クイズ', description: '場面を読んで登場人物の気持ちを4択でタップ→全員の回答を表示', inputType: 'choice', scenarios: [
+      { text: '友達が転んで泣いています。', choices: ['かなしい', 'うれしい', 'おこっている', 'こわい'] },
+      { text: '誕生日プレゼントをもらいました。', choices: ['うれしい', 'かなしい', 'おこっている', 'さびしい'] },
+      { text: 'おもちゃを取られました。', choices: ['おこっている', 'うれしい', 'たのしい', 'ほっとした'] }
+    ]},
+    { id: 8, type: 'input', name: '共感メッセージ', description: '友達の発表を聞いて「一言コメント」を入力→画面に並べて表示', inputType: 'text' },
+    { id: 9, type: 'input', name: '感情ラベリング', description: '表示された場面に当てはまる感情をタップして選ぶ', inputType: 'choice', scenarios: [
+      { text: 'みんなで遊園地に行きました。', choices: ['わくわく', 'ドキドキ', 'がっかり', 'すっきり'] },
+      { text: '楽しみにしていたプリンが落っこちました。', choices: ['がっかり', 'わくわく', 'たのしい', 'すっきり'] }
+    ]},
+    { id: 10, type: 'input', name: 'リアクション選び', description: '「友達が困った場面に自分ならどうする？」を選択肢からタップ', inputType: 'choice', scenarios: [
+      { text: '友達がプリントを落として困っています。', choices: ['ひろってあげる', 'そのままにする', '先生をよぶ'] },
+      { text: '友達が道に迷って泣いています。', choices: ['声をかける', 'はなれる', '一緒にさがす'] }
+    ]},
   ],
   redAvoidanceTasks: [
     { id: 1, text: '目を閉じて、ゆっくり深呼吸を3回しよう' },
