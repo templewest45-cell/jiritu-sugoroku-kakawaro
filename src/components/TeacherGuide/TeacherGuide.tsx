@@ -124,12 +124,35 @@ export function TeacherGuide({ dispatch }: Props) {
 
               {/* ミッション一覧 */}
               <div className="guide-card">
-                <h4 className="guide-card__title">🚩 赤マス・ミッション課題 ({content.missions.length}種)</h4>
+                <h4 className="guide-card__title">🎯 全員ミッション課題 (緑マス) ({content.missions.length}種)</h4>
                 <p className="guide-card__desc">※全員参加型・協力型の課題</p>
                 <ul className="guide-list">
                   {content.missions.map(ms => (
                     <li key={ms.id}>{ms.text}</li>
                   ))}
+                </ul>
+              </div>
+
+              {/* 赤マス回避タスク一覧 */}
+              <div className="guide-card">
+                <h4 className="guide-card__title">🔴 減点回避タスク (赤マス) ({content.redAvoidanceTasks.length}種)</h4>
+                <p className="guide-card__desc">※赤マスで減点を回避するためのリフレッシュ行動</p>
+                <ul className="guide-list">
+                  {content.redAvoidanceTasks.map(rt => (
+                    <li key={rt.id}>{rt.text}</li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* ランダムタスク一覧 */}
+              <div className="guide-card">
+                <h4 className="guide-card__title">❓ ランダムイベント (黄マス)</h4>
+                <p className="guide-card__desc">※「協力」「多数決」「タイムアタック」「指名」などのイベント</p>
+                <ul className="guide-list" style={{ fontSize: '0.9rem' }}>
+                  <li><strong>🤝 協力:</strong> {content.randomTasks.cooperate.join(' / ')}</li>
+                  <li><strong>🗳️ 多数決:</strong> {content.randomTasks.vote.join(' / ')}</li>
+                  <li><strong>⏱️ 時間:</strong> {content.randomTasks.time.join(' / ')}</li>
+                  <li><strong>👉 指名:</strong> {content.randomTasks.nominate.join(' / ')}</li>
                 </ul>
               </div>
 
