@@ -60,8 +60,8 @@ export function EventModals({ state, dispatch }: Props) {
         .catch(err => console.error('Camera error:', err));
     }
 
-    // お題設定
-    if (eventPhase === 'minigame' && pendingMinigame?.type === 'input') {
+    // お題設定 (全てのミニゲームで対応)
+    if (eventPhase === 'minigame' && pendingMinigame) {
       if (pendingMinigame.scenarios && pendingMinigame.scenarios.length > 0) {
         const randomScen = pendingMinigame.scenarios[Math.floor(Math.random() * pendingMinigame.scenarios.length)];
         setCurrentScenario(randomScen);
@@ -372,6 +372,12 @@ export function EventModals({ state, dispatch }: Props) {
             🎁 参加ボーナス: 全員に +5pt
             {pendingMinigame.type === 'input' && <span style={{display:'block', fontSize:'1rem', marginTop:'4px', color:'var(--color-gold)'}}>🔍 かぶった人にはさらに +5pt！</span>}
           </div>
+
+          {currentScenario && (
+            <div style={{ background: 'rgba(59, 130, 246, 0.2)', padding: '16px', borderRadius: '12px', margin: '16px 0', fontWeight: 'bold', fontSize: '1.2rem', color: '#eff6ff', border: '1px solid rgba(59, 130, 246, 0.4)' }}>
+              💡 お題: {currentScenario.text}
+            </div>
+          )}
           
           {pendingMinigame.type === 'camera' && (
             <div className="event-modal__camera-area" style={{ margin: '16px 0', textAlign: 'center' }}>
@@ -419,11 +425,6 @@ export function EventModals({ state, dispatch }: Props) {
 
           {pendingMinigame.type === 'input' && (
             <div className="event-modal__input-area" style={{ width: '100%', margin: '20px 0', textAlign: 'left' }}>
-              {currentScenario && (
-                <div style={{ background: 'rgba(59, 130, 246, 0.2)', padding: '16px', borderRadius: '12px', marginBottom: '20px', fontWeight: 'bold', fontSize: '1.2rem', color: '#eff6ff', border: '1px solid rgba(59, 130, 246, 0.4)' }}>
-                  💡 お題: {currentScenario.text}
-                </div>
-              )}
               {!showInputResult ? (
                 <>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>

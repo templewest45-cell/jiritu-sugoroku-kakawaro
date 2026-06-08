@@ -45,7 +45,12 @@ export const content3: DivisionContent = {
       { text: '自分が一番「好き」なもの' },
       { text: '実はちょっと「苦手」なこと' }
     ]},
-    { id: 8, type: 'input', name: '気持ちの温度計', description: '今の気持ちを0〜100でタップ→全員分グラフで表示', inputType: 'slider' },
+    { id: 8, type: 'input', name: '気持ちの温度計', description: 'お題の場面での「気持ちの温度（イライラ度や緊張度）」を0〜100で入力しよう', inputType: 'slider', scenarios: [
+      { text: '宿題がたくさん出たときの「イライラ度」' },
+      { text: 'テストの点数が悪かったときの「ガッカリ度」' },
+      { text: '楽しみな行事の前日の「ワクワク度」' },
+      { text: 'みんなの前で発表するときの「緊張度」' }
+    ]},
     { id: 9, type: 'input', name: '行動選択クイズ', description: '「こんなときどうする？」を3択でタップ→全員の回答を比べる', inputType: 'choice', scenarios: [
       { text: 'おなかが痛くなりました。', choices: ['先生にいう', 'がまんする', '家に帰る'] },
       { text: '友達とケンカしました。', choices: ['あやまる', '無視する', '別の友達と遊ぶ'] },

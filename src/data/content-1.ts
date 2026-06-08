@@ -34,8 +34,18 @@ export const content1: DivisionContent = {
     { id: 10, text: '「最近うれしかったこと」を一言ずつ話そう' },
   ],
   minigames: [
-    { id: 1, type: 'camera', name: 'せーので同じ顔', description: 'お題の感情を全員せーので表現→撮影して画面に残す' },
-    { id: 2, type: 'camera', name: 'ジェスチャー当て', description: '1人がお題をジェスチャー→全員で当てる→正解者と一緒に撮影' },
+    { id: 1, type: 'camera', name: 'せーので同じ顔', description: 'ランダムで出るお題の感情を全員せーので表現→撮影して画面に残す', scenarios: [
+      { text: 'とびっきり「うれしい顔」！' },
+      { text: '大げさに「悲しい顔」！' },
+      { text: 'プンプン「怒った顔」！' },
+      { text: '目を見開いて「びっくりした顔」！' }
+    ]},
+    { id: 2, type: 'camera', name: 'ジェスチャー当て', description: '1人がお題をジェスチャー→全員で当てる→正解者と一緒に撮影', scenarios: [
+      { text: 'ゴリラ' },
+      { text: '野球をしているところ' },
+      { text: 'おにぎりを食べているところ' },
+      { text: '歯磨きをしているところ' }
+    ]},
     { id: 3, type: 'camera', name: '今日の気分ポーズ', description: '今の気持ちをポーズで表現→全員並んで撮影' },
     { id: 4, type: 'mic', name: '声の大きさコントロール', description: 'メーターが緑色に収まるように、声の大きさを調整して「こんにちは」と言ってみよう' },
     { id: 5, type: 'mic', name: 'せーので「いいね！」', description: '全員同時に「いいね！」と言って音量が揃ったら成功' },

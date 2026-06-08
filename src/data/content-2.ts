@@ -34,8 +34,17 @@ export const content2: DivisionContent = {
     { id: 10, text: '友達が困っているときどうする？全員で考えて発表しよう' },
   ],
   minigames: [
-    { id: 1, type: 'camera', name: '感情当て写真', description: '1人が感情をポーズで表現→撮影→全員で何の感情か当てる' },
-    { id: 2, type: 'camera', name: '場面再現ショット', description: '教師がお題の場面を言う→2人で再現→撮影して振り返る' },
+    { id: 1, type: 'camera', name: '感情当て写真', description: '代表者がお題の感情をポーズで表現→撮影→みんなで当てる', scenarios: [
+      { text: 'ワクワクしているところ' },
+      { text: 'ガッカリしているところ' },
+      { text: 'ホッとしたところ' },
+      { text: 'イライラしているところ' }
+    ]},
+    { id: 2, type: 'camera', name: '場面再現ショット', description: 'お題の場面を2人で再現→撮影して振り返る', scenarios: [
+      { text: '友達にドンッとぶつかってしまった場面' },
+      { text: '消しゴムを忘れて困っている場面' },
+      { text: '友達からプレゼントをもらった場面' }
+    ]},
     { id: 3, type: 'camera', name: 'いい聞き方・悪い聞き方', description: '2パターンを再現して撮影→どちらが良いか話し合う' },
     { id: 4, type: 'mic', name: '言い方チェンジゲーム', description: '同じ「おはよう」を「やさしく」「つよく」「悲しそうに」言い分けてみよう' },
     { id: 5, type: 'mic', name: '声のトーン当て', description: '代表者がお題の感情（怒り・悲しみ・喜び等）で声を出し、みんなで当てよう（アプリの判定ではなくみんなで相談）' },
