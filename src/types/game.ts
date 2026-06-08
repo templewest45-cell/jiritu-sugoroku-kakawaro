@@ -95,6 +95,7 @@ export type EventPhase =
   | 'redEvent'
   | 'missionEvent'
   | 'randomEvent'
+  | 'minigameIntro'
   | 'minigame'
   | 'goalCelebration'
   | 'bonus';

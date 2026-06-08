@@ -54,6 +54,8 @@ export function GameScreen({ state, dispatch }: Props) {
     }
   }, [eventPhase, lastDiceValue, dispatch]);
 
+  const currentRound = Math.ceil(turn / players.length);
+
   return (
     <div className="game-screen">
       {/* ─── ヘッダー ─── */}
@@ -80,7 +82,9 @@ export function GameScreen({ state, dispatch }: Props) {
               <div className="game-header__current-label">いまのターン</div>
               <div className="game-header__current-name">{currentPlayer.name}のターン</div>
             </div>
-            <div className="game-header__turn-badge">T{turn}</div>
+            <div className="game-header__turn-badge" style={{ fontSize: '1.2rem', padding: '4px 12px', background: '#3b82f6', color: '#fff' }}>
+              {currentRound}ターン目
+            </div>
           </div>
         )}
 
@@ -153,6 +157,28 @@ export function GameScreen({ state, dispatch }: Props) {
               onClick={() => dispatch({ type: 'SHOW_EVENT' })}
             >
               イベントを見る
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ミニゲームのイントロ */}
+      {eventPhase === 'minigameIntro' && state.pendingMinigame && (
+        <div className="modal-overlay">
+          <div className="modal-box text-center" style={{ maxWidth: '500px' }}>
+            <div style={{ fontSize: '4rem', margin: '1rem 0' }}>🎮</div>
+            <h2 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#3b82f6' }}>
+              第{currentRound - 1}ターン終了！<br/>みんなでミニゲーム！
+            </h2>
+            <p style={{ fontSize: '1.2rem', marginBottom: '2rem', color: 'var(--color-text-muted)' }}>
+              全員で協力してミニゲームに挑戦しよう！
+            </p>
+            <button
+              className="btn btn-primary btn-lg"
+              style={{ padding: '16px 48px', fontSize: '1.5rem' }}
+              onClick={() => dispatch({ type: 'SHOW_MINIGAME' })}
+            >
+              ミニゲームをはじめる！
             </button>
           </div>
         </div>

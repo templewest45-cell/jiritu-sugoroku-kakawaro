@@ -86,6 +86,7 @@ export type GameAction =
   | { type: 'STEP_MOVE' }
   | { type: 'MOVE_COMPLETE' }
   | { type: 'SHOW_EVENT' }
+  | { type: 'SHOW_MINIGAME' }
   | { type: 'BLUE_SUCCESS' }
   | { type: 'BLUE_SKIP' }
   | { type: 'RED_AVOID' }
@@ -370,6 +371,9 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
     case 'GOAL_DONE':
       return nextTurn(state);
 
+    case 'SHOW_MINIGAME':
+      return { ...state, eventPhase: 'minigame' };
+
     case 'ADD_TEACHER_NOTE':
       return {
         ...state,
@@ -442,7 +446,7 @@ function nextTurn(state: GameState): GameState {
   const teamPoints = state.teamPoints + (currentPlayer.position >= TOTAL_SQUARES_COUNT - 1 ? POINTS.goal : 0);
   const { showTeamAward, lastTeamAwardAt } = checkTeamAward(teamPoints, state.lastTeamAwardAt);
 
-  const eventPhase: EventPhase = pendingMinigame ? 'minigame' : 'idle';
+  const eventPhase: EventPhase = pendingMinigame ? 'minigameIntro' : 'idle';
 
   return {
     ...state,
