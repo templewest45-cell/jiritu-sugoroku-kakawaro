@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import './EventModals.css';
 import type { GameState, RandomEventType } from '../../types/game';
 import type { GameAction } from '../../store/gameStore';
+import { RubyText } from '../RubyText/RubyText';
 
 interface Props {
   state: GameState;
@@ -148,7 +149,7 @@ export function EventModals({ state, dispatch }: Props) {
             <span style={{ fontSize: '2rem' }}>{currentPlayer?.emoji}</span>
             <strong>{currentPlayer?.name}のターン</strong>
           </div>
-          <p className="event-modal__task">{challenge.text}</p>
+          <p className="event-modal__task"><RubyText text={challenge.text} /></p>
           
           <div style={{ background: 'rgba(59, 130, 246, 0.1)', border: '2px solid rgba(59, 130, 246, 0.3)', padding: '12px 24px', borderRadius: '12px', color: 'var(--color-blue-light)', fontWeight: '900', fontSize: '1.4rem' }}>
             🎁 成功報酬: +10pt
@@ -199,7 +200,7 @@ export function EventModals({ state, dispatch }: Props) {
             でも、次のチャレンジに成功すれば回避できるよ！
           </p>
           <div className="event-modal__challenge-prompt" style={{ background: '#fee2e2', padding: '16px', borderRadius: '12px', marginTop: '16px', fontWeight: 'bold', color: '#991b1b' }}>
-            {avoidanceTask.text}
+            <RubyText text={avoidanceTask.text} />
           </div>
           <div className="event-modal__actions">
             <button className="btn btn-green btn-lg" onClick={() => dispatch({ type: 'RED_AVOID' })}>
@@ -221,7 +222,7 @@ export function EventModals({ state, dispatch }: Props) {
       <div className="modal-overlay">
         <div className="modal-box event-modal event-modal--mission">
           <div className="event-modal__badge event-modal__badge--mission">🎯 全員ミッション！</div>
-          <p className="event-modal__task">{mission.text}</p>
+          <p className="event-modal__task"><RubyText text={mission.text} /></p>
 
           <div style={{ background: 'rgba(168, 85, 247, 0.1)', border: '2px solid rgba(168, 85, 247, 0.3)', padding: '12px 24px', borderRadius: '12px', color: '#c4b5fd', fontWeight: '900', fontSize: '1.4rem', margin: '12px 0' }}>
             🎁 全員達成で: +15pt
@@ -271,13 +272,13 @@ export function EventModals({ state, dispatch }: Props) {
         <div className="modal-box event-modal event-modal--random">
           <div className="event-modal__badge event-modal__badge--random">❓ ランダムイベント</div>
           <div className="event-modal__random-icon">{ev.icon}</div>
-          <div className="event-modal__random-name">{ev.name}</div>
-          <p className="event-modal__task">{ev.desc}</p>
+          <div className="event-modal__random-name"><RubyText text={ev.name} /></div>
+          <p className="event-modal__task"><RubyText text={ev.desc} /></p>
           
           {currentEvent.content && (
             <>
               <div className="event-modal__challenge-prompt" style={{ background: '#e0f2fe', padding: '16px', borderRadius: '12px', marginTop: '16px', fontWeight: 'bold', color: '#0369a1', fontSize: '1.2rem' }}>
-                💡 お題：{(currentEvent.content as { text: string }).text}
+                💡 お題：<RubyText text={(currentEvent.content as { text: string }).text} />
               </div>
               <div style={{ background: 'rgba(245, 158, 11, 0.1)', border: '2px solid rgba(245, 158, 11, 0.3)', padding: '12px 24px', borderRadius: '12px', color: 'var(--color-gold)', fontWeight: '900', fontSize: '1.4rem', margin: '16px 0' }}>
                 🎁 チャレンジ成功で: +5pt
@@ -365,8 +366,8 @@ export function EventModals({ state, dispatch }: Props) {
         <div className="modal-box event-modal event-modal--minigame">
           <div className="event-modal__badge event-modal__badge--minigame">🎮 ミニゲーム発動！</div>
           <div className="event-modal__minigame-type">{typeLabel}</div>
-          <div className="event-modal__minigame-name">{pendingMinigame.name}</div>
-          <p className="event-modal__task">{pendingMinigame.description}</p>
+          <div className="event-modal__minigame-name"><RubyText text={pendingMinigame.name} /></div>
+          <p className="event-modal__task"><RubyText text={pendingMinigame.description} /></p>
 
           <div style={{ background: 'rgba(167, 139, 250, 0.1)', border: '2px solid rgba(167, 139, 250, 0.3)', padding: '12px 24px', borderRadius: '12px', color: '#c4b5fd', fontWeight: '900', fontSize: '1.4rem', margin: '8px 0' }}>
             🎁 参加ボーナス: 全員に +5pt
@@ -375,7 +376,7 @@ export function EventModals({ state, dispatch }: Props) {
 
           {currentScenario && (
             <div style={{ background: 'rgba(59, 130, 246, 0.2)', padding: '16px', borderRadius: '12px', margin: '16px 0', fontWeight: 'bold', fontSize: '1.2rem', color: '#eff6ff', border: '1px solid rgba(59, 130, 246, 0.4)' }}>
-              💡 お題: {currentScenario.text}
+              💡 お題: <RubyText text={currentScenario.text} />
             </div>
           )}
           
@@ -494,7 +495,7 @@ export function EventModals({ state, dispatch }: Props) {
                                         className={`btn ${inputs[i] === choice ? 'btn-blue' : 'btn-ghost'}`}
                                         style={{ flex: 1, padding: '12px 8px', fontSize: '1.1rem', border: '2px solid rgba(255,255,255,0.3)', background: inputs[i] === choice ? 'var(--color-blue)' : 'rgba(0,0,0,0.3)', minWidth: '100px' }}
                                       >
-                                        {choice}
+                                        <RubyText text={choice} />
                                       </button>
                                     ))}
                                   </div>
