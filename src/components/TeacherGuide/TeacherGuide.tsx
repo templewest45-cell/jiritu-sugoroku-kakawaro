@@ -108,7 +108,7 @@ export function TeacherGuide({ dispatch }: Props) {
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <div>
                           <span className="mg-type">[{mg.type === 'camera' ? '📷 カメラ' : mg.type === 'mic' ? '🎤 マイク' : '👆 タップ'}]</span>
-                          <strong>{mg.name}</strong>
+                          <strong>{stripRuby(mg.name)}</strong>
                         </div>
                         <button 
                           className="btn btn-primary" 
@@ -118,7 +118,7 @@ export function TeacherGuide({ dispatch }: Props) {
                           ▶️ テストプレイ
                         </button>
                       </div>
-                      <p>{mg.description}</p>
+                      <p>{stripRuby(mg.description)}</p>
                     </li>
                   ))}
                 </ul>
