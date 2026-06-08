@@ -13,7 +13,7 @@ export const SQUARE_NAMES: Record<string, string> = {
   start:   'スタート',
   goal:    'ゴール',
   blue:    'せいこう',
-  red:     'マイナス',
+  red:     '赤マス',
   mission: 'みんなで',
   random:  'なにかな',
 };
@@ -22,7 +22,7 @@ export const SQUARE_ICONS: Record<string, string> = {
   start:   '🚩',
   goal:    '👑',
   blue:    '⭐',
-  red:     '✖',
+  red:     '🔴',
   mission: '🤝',
   random:  '❓',
 };

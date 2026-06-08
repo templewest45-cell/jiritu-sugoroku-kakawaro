@@ -12,11 +12,11 @@ import { SQUARE_COLORS, SQUARE_NAMES, SQUARE_ICONS } from '../../utils/board';
 
 // 凡例
 const LEGEND_ITEMS = [
-  { type: 'blue',    label: '⭐ せいこう',    desc: 'できたら+10pt' },
-  { type: 'red',     label: '✖ マイナス',    desc: 'チャレンジ-5pt' },
-  { type: 'mission', label: '🤝 みんなで',    desc: '全員で+15pt' },
-  { type: 'random',  label: '❓ なにかな',    desc: 'ランダムイベント' },
-  { type: 'goal',    label: '👑 ゴール',      desc: '到達で+20pt' },
+  { type: 'blue',    label: `${SQUARE_ICONS.blue} ${SQUARE_NAMES.blue}`,    desc: 'できたら+10pt' },
+  { type: 'red',     label: `${SQUARE_ICONS.red} ${SQUARE_NAMES.red}`,      desc: 'チャレンジ-5pt' },
+  { type: 'mission', label: `${SQUARE_ICONS.mission} ${SQUARE_NAMES.mission}`, desc: '全員で+15pt' },
+  { type: 'random',  label: `${SQUARE_ICONS.random} ${SQUARE_NAMES.random}`,  desc: 'ランダムイベント' },
+  { type: 'goal',    label: `${SQUARE_ICONS.goal} ${SQUARE_NAMES.goal}`,      desc: '到達で+20pt' },
 ];
 
 export function Board({ state }: Props) {

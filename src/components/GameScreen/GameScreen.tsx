@@ -142,7 +142,7 @@ export function GameScreen({ state, dispatch }: Props) {
       {eventPhase === 'arrived' && state.currentEvent.type && (
         <div className="modal-overlay">
           <div className="modal-box text-center" style={{ maxWidth: '400px' }}>
-            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#1e293b' }}>
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>
               {SQUARE_NAMES[state.currentEvent.type]} にとまった！
             </h2>
             <div style={{ fontSize: '4rem', margin: '1rem 0' }}>
