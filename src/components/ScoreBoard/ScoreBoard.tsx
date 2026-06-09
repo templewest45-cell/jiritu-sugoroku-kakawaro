@@ -6,7 +6,6 @@ interface Props {
   players: Player[];
   currentPlayerIndex: number;
   teamPoints: number;
-  assistMode: boolean;
   dispatch: React.Dispatch<GameAction>;
   onEndSession: () => void;
   onShowObjective: () => void;

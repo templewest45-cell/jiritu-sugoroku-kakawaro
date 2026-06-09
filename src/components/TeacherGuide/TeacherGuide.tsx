@@ -52,7 +52,7 @@ export function TeacherGuide({ dispatch }: Props) {
             <p>
               本アプリは、特別支援学校の自立活動における「人間関係の形成」を目的としたすごろく型学習教材です。
               児童生徒が遊びながら自然にコミュニケーションの基本や、他者の感情理解、自己調整のスキルを学ぶことができます。
-              また、「アシストモード」を活用することで、文字を読むのが苦手な生徒でも音声によるサポートを受けながら自立して取り組めるよう設計されています。
+              また、失敗体験を減らし、誰もが安心して参加できるよう、「やさしい言葉（補助UI）」をデフォルトで採用しています。
             </p>
           </div>
 
@@ -161,7 +161,7 @@ export function TeacherGuide({ dispatch }: Props) {
               {/* 青マス チャレンジ一覧 */}
               <div className="guide-card guide-card--full">
                 <h4 className="guide-card__title">⭐ 青マス チャレンジ課題 ({content.challenges.length}種)</h4>
-                <p className="guide-card__desc">※個人で取り組む課題（アシストモードでの代読対応可）</p>
+                <p className="guide-card__desc">※個人で取り組む課題（やさしい言葉UIが適用されます）</p>
                 <div className="guide-grid-columns">
                   <ul className="guide-list">
                     {content.challenges.slice(0, 8).map(ch => (
