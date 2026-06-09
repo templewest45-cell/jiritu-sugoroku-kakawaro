@@ -3,7 +3,8 @@ import type { DivisionContent } from '../types/game';
 export const content3: DivisionContent = {
   divisionId: 3,
   name: '自己の理解と行動の調整',
-  goal: '自分の特徴・気持ち・行動パターンを知り、状況に合わせて調整できるようにする。',
+  goal: '自分の感情や状況を理解し、適切に表現・対処する方法を身につける。',
+  studentGoal: '自分のきもちを上手に{伝|つた}えよう！{困|こま}ったときにお{願|ねが}いしたり、ルールを{守|まも}ったりすると、みんなニコニコになれるよ！',
   challenges: [
     { id: 1, text: '自分が「{得意|とくい}なこと」を1つ{発表|はっぴょう}しよう！' },
     { id: 2, text: '自分が「{苦手|にがて}なこと」を1つしょうじきにはなそう！' },

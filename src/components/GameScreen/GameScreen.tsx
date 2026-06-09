@@ -210,7 +210,7 @@ export function GameScreen({ state, dispatch }: Props) {
               <div style={{ fontSize: '1rem', color: '#166534', fontWeight: 'bold', marginBottom: '8px' }}>✨ がくしゅうのめあて</div>
               <h3 style={{ fontSize: '1.4rem', color: '#166534', marginBottom: '12px' }}>{content?.name}</h3>
               <p style={{ fontSize: '1.2rem', color: '#14532d', lineHeight: '1.6', fontWeight: 'bold' }}>
-                <RubyText text={content?.goal || ''} />
+                <RubyText text={content?.studentGoal || content?.goal || ''} />
               </p>
             </div>
 

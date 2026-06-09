@@ -67,6 +67,7 @@ export interface DivisionContent {
   divisionId: DivisionId;
   name: string;
   goal: string;
+  studentGoal?: string;
   challenges: Challenge[];
   missions: Mission[];
   minigames: Minigame[];
