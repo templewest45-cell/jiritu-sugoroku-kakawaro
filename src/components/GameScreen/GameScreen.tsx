@@ -263,11 +263,23 @@ export function GameScreen({ state, dispatch }: Props) {
         <div className="modal-overlay" onClick={() => setShowObjective(false)}>
           <div className="modal-box" style={{ maxWidth: '600px', textAlign: 'center' }} onClick={e => e.stopPropagation()}>
             <h2 style={{ fontSize: '2rem', marginBottom: '16px', color: '#1d4ed8' }}>🎯 今日のめあて</h2>
-            <div style={{ background: '#f0fdf4', padding: '24px', borderRadius: '16px', border: '3px solid #4ade80', marginBottom: '24px' }}>
-              <h3 style={{ fontSize: '1.5rem', color: '#166534', marginBottom: '12px' }}>{content?.name}</h3>
+            {/* 学習のめあて */}
+            <div style={{ background: '#f0fdf4', padding: '24px', borderRadius: '16px', border: '3px solid #4ade80', marginBottom: '16px' }}>
+              <div style={{ fontSize: '1rem', color: '#166534', fontWeight: 'bold', marginBottom: '8px' }}>✨ がくしゅうのめあて</div>
+              <h3 style={{ fontSize: '1.4rem', color: '#166534', marginBottom: '12px' }}>{content?.name}</h3>
               <p style={{ fontSize: '1.2rem', color: '#14532d', lineHeight: '1.6', fontWeight: 'bold' }}>
                 <RubyText text={content?.goal || ''} />
               </p>
+            </div>
+
+            {/* ゲームのめあて（システム） */}
+            <div style={{ background: '#fffbeb', padding: '20px', borderRadius: '16px', border: '3px solid #fcd34d', marginBottom: '24px', textAlign: 'left' }}>
+              <div style={{ fontSize: '1rem', color: '#b45309', fontWeight: 'bold', marginBottom: '12px', textAlign: 'center' }}>🎮 ゲームのめあて</div>
+              <ul style={{ fontSize: '1.1rem', color: '#78350f', lineHeight: '1.8', fontWeight: 'bold', paddingLeft: '16px', margin: 0 }}>
+                <li>みんなで協力して <strong>ポイント</strong> をあつめよう！</li>
+                <li>お題をクリアするとポイントゲット！</li>
+                <li>全員がゴールについたらゲームクリア！トロフィー🏆をめざそう！</li>
+              </ul>
             </div>
             <button className="btn btn-primary btn-lg" onClick={() => setShowObjective(false)}>
               がんばるぞー！おー！
