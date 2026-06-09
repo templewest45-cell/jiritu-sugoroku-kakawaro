@@ -7,7 +7,7 @@ import { ScoreBoard } from '../ScoreBoard/ScoreBoard';
 import { EventModals } from '../EventModals/EventModals';
 import { getContent } from '../../store/gameStore';
 import { SQUARE_NAMES, SQUARE_ICONS } from '../../utils/board';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 interface Props {
   state: GameState;
@@ -32,6 +32,8 @@ export function GameScreen({ state, dispatch }: Props) {
   const isIdle = eventPhase === 'idle';
   const isMoving = eventPhase === 'moving';
   const isRolling = eventPhase === 'rolling';
+
+  const [showRules, setShowRules] = useState(false);
 
   useEffect(() => {
     if (eventPhase === 'animatingMove') {
@@ -89,6 +91,13 @@ export function GameScreen({ state, dispatch }: Props) {
         )}
 
         <div className="game-header__right">
+          <button 
+            className="btn btn-ghost" 
+            style={{ marginRight: '16px', fontSize: '1.2rem', padding: '8px 16px', border: '2px solid #fbbf24', background: '#fff' }}
+            onClick={() => setShowRules(true)}
+          >
+            📖 あそびかた
+          </button>
           <div className="game-header__team-pts">
             <span className="game-header__team-pts-label">チーム</span>
             <span className="game-header__team-pts-value">{teamPoints}</span>
@@ -194,6 +203,57 @@ export function GameScreen({ state, dispatch }: Props) {
             <button className="btn btn-gold btn-lg" onClick={() => dispatch({ type: 'DISMISS_TEAM_AWARD' })}>
               やったー！🎉
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* あそびかたモーダル */}
+      {showRules && (
+        <div className="modal-overlay" onClick={() => setShowRules(false)}>
+          <div className="modal-box" style={{ maxWidth: '600px' }} onClick={e => e.stopPropagation()}>
+            <h2 style={{ fontSize: '2rem', marginBottom: '24px', color: '#b45309', textAlign: 'center' }}>📖 マスのあそびかた</h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', textAlign: 'left' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', background: '#f0f9ff', padding: '12px', borderRadius: '12px' }}>
+                <span style={{ fontSize: '2.5rem' }}>{SQUARE_ICONS.blue}</span>
+                <div>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#1d4ed8' }}>青マス</div>
+                  <div style={{ fontSize: '1rem', color: '#334155' }}>お題にチャレンジ！できたら <strong style={{ color: '#ea580c' }}>10ポイント</strong> ゲット！</div>
+                </div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', background: '#fef2f2', padding: '12px', borderRadius: '12px' }}>
+                <span style={{ fontSize: '2.5rem' }}>{SQUARE_ICONS.red}</span>
+                <div>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#b91c1c' }}>赤マス</div>
+                  <div style={{ fontSize: '1rem', color: '#334155' }}>ちょっとむずかしいお題！がんばったら <strong style={{ color: '#ea580c' }}>15ポイント</strong> ゲット！</div>
+                </div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', background: '#fffbeb', padding: '12px', borderRadius: '12px' }}>
+                <span style={{ fontSize: '2.5rem' }}>{SQUARE_ICONS.mission}</span>
+                <div>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#d97706' }}>みんなでマス</div>
+                  <div style={{ fontSize: '1rem', color: '#334155' }}>チームみんなで協力しよう！ <strong style={{ color: '#ea580c' }}>15ポイント</strong> ゲット！</div>
+                </div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', background: '#f5f3ff', padding: '12px', borderRadius: '12px' }}>
+                <span style={{ fontSize: '2.5rem' }}>{SQUARE_ICONS.random}</span>
+                <div>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#7e22ce' }}>なにかなマス</div>
+                  <div style={{ fontSize: '1rem', color: '#334155' }}>なにがおこるかおたのしみ！</div>
+                </div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', background: '#fefce8', padding: '12px', borderRadius: '12px' }}>
+                <span style={{ fontSize: '2.5rem' }}>{SQUARE_ICONS.goal}</span>
+                <div>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#ca8a04' }}>ゴールマス</div>
+                  <div style={{ fontSize: '1rem', color: '#334155' }}>ゴールについたら <strong style={{ color: '#ea580c' }}>20ポイント</strong>！チーム合計でハイスコアをめざそう！</div>
+                </div>
+              </div>
+            </div>
+            <div style={{ marginTop: '24px', textAlign: 'center' }}>
+              <button className="btn btn-primary btn-lg" onClick={() => setShowRules(false)}>
+                わかった！
+              </button>
+            </div>
           </div>
         </div>
       )}

@@ -10,14 +10,7 @@ interface Props {
 
 import { SQUARE_COLORS, SQUARE_NAMES, SQUARE_ICONS } from '../../utils/board';
 
-// 凡例
-const LEGEND_ITEMS = [
-  { type: 'blue',    label: `${SQUARE_ICONS.blue} ${SQUARE_NAMES.blue}`,    desc: 'できたら+10pt' },
-  { type: 'red',     label: `${SQUARE_ICONS.red} ${SQUARE_NAMES.red}`,      desc: 'チャレンジ-5pt' },
-  { type: 'mission', label: `${SQUARE_ICONS.mission} ${SQUARE_NAMES.mission}`, desc: '全員で+15pt' },
-  { type: 'random',  label: `${SQUARE_ICONS.random} ${SQUARE_NAMES.random}`,  desc: 'ランダムイベント' },
-  { type: 'goal',    label: `${SQUARE_ICONS.goal} ${SQUARE_NAMES.goal}`,      desc: '到達で+20pt' },
-];
+// 凡例はGameScreenのモーダルに移動しました
 
 export function Board({ state }: Props) {
   const { squares, players, currentPlayerIndex, eventPhase } = state;
@@ -157,19 +150,6 @@ export function Board({ state }: Props) {
             </div>
           );
         })}
-      </div>
-
-      {/* 凡例バー（左下に固定浮遊） */}
-      <div className="board-legend-floating">
-        {LEGEND_ITEMS.map(item => (
-          <div key={item.type} className="board-legend__item" style={{ '--sq-color': SQUARE_COLORS[item.type] } as React.CSSProperties}>
-            <div className="board-legend__dot" />
-            <div className="board-legend__text">
-              <span className="board-legend__label">{item.label}</span>
-              <span className="board-legend__desc">{item.desc}</span>
-            </div>
-          </div>
-        ))}
       </div>
     </div>
   );
