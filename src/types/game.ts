@@ -136,4 +136,5 @@ export interface GameState {
   teamPoints: number;
   showTeamAward: boolean;
   lastTeamAwardAt: number;
+  lastMinigameId: number | null;
 }

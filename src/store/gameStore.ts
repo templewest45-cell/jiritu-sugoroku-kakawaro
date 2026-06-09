@@ -70,6 +70,7 @@ export const initialState: GameState = {
   teamPoints: 0,
   showTeamAward: false,
   lastTeamAwardAt: 0,
+  lastMinigameId: null,
 };
 
 export type GameAction =
@@ -419,7 +420,16 @@ function nextTurn(state: GameState): GameState {
 
   // 仕様に基づき、全員が1回ずつ行動した「ラウンドの終わり」にミニゲームを発動
   if (state.currentPlayerIndex === state.players.length - 1) {
-    pendingMinigame = pickRandom(content.minigames);
+    let chosen = pickRandom(content.minigames);
+    // 前回と同じミニゲームが連続しないように再抽選（ミニゲームが2種類以上ある場合）
+    if (content.minigames.length > 1) {
+      let attempts = 0;
+      while (chosen.id === state.lastMinigameId && attempts < 10) {
+        chosen = pickRandom(content.minigames);
+        attempts++;
+      }
+    }
+    pendingMinigame = chosen;
   } else {
     pendingMinigame = null;
   }
@@ -455,5 +465,6 @@ function nextTurn(state: GameState): GameState {
     teamPoints,
     showTeamAward,
     lastTeamAwardAt,
+    lastMinigameId: pendingMinigame ? pendingMinigame.id : state.lastMinigameId,
   };
 }
