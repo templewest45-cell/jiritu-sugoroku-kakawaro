@@ -8,6 +8,7 @@ import { EventModals } from '../EventModals/EventModals';
 import { getContent } from '../../store/gameStore';
 import { SQUARE_NAMES, SQUARE_ICONS } from '../../utils/board';
 import { useEffect, useState } from 'react';
+import { RubyText } from '../RubyText/RubyText';
 
 interface Props {
   state: GameState;
