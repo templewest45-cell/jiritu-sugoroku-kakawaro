@@ -128,7 +128,6 @@ export interface GameState {
     content: Challenge | Mission | Minigame | null;
     randomEventType?: RandomEventType;
   };
-  assistMode: boolean;
   teacherNotes: TeacherNote[];
   achievedTasks: AchievedTask[];
   capturedPhotos: string[];

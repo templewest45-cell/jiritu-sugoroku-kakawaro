@@ -22,7 +22,6 @@ export function GameScreen({ state, dispatch }: Props) {
     lastDiceValue,
     divisionId,
     teamPoints,
-    assistMode,
     showTeamAward,
     turn,
   } = state;
@@ -34,6 +33,7 @@ export function GameScreen({ state, dispatch }: Props) {
   const isRolling = eventPhase === 'rolling';
 
   const [showRules, setShowRules] = useState(false);
+  const [showObjective, setShowObjective] = useState(false);
 
   useEffect(() => {
     if (eventPhase === 'animatingMove') {
@@ -141,9 +141,9 @@ export function GameScreen({ state, dispatch }: Props) {
             players={players}
             currentPlayerIndex={currentPlayerIndex}
             teamPoints={teamPoints}
-            assistMode={assistMode}
             dispatch={dispatch}
             onEndSession={() => dispatch({ type: 'END_SESSION' })}
+            onShowObjective={() => setShowObjective(true)}
           />
         </div>
       </div>
@@ -254,6 +254,24 @@ export function GameScreen({ state, dispatch }: Props) {
                 わかった！
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* めあて確認モーダル */}
+      {showObjective && (
+        <div className="modal-overlay" onClick={() => setShowObjective(false)}>
+          <div className="modal-box" style={{ maxWidth: '600px', textAlign: 'center' }} onClick={e => e.stopPropagation()}>
+            <h2 style={{ fontSize: '2rem', marginBottom: '16px', color: '#1d4ed8' }}>🎯 今日のめあて</h2>
+            <div style={{ background: '#f0fdf4', padding: '24px', borderRadius: '16px', border: '3px solid #4ade80', marginBottom: '24px' }}>
+              <h3 style={{ fontSize: '1.5rem', color: '#166534', marginBottom: '12px' }}>{content?.name}</h3>
+              <p style={{ fontSize: '1.2rem', color: '#14532d', lineHeight: '1.6', fontWeight: 'bold' }}>
+                <RubyText text={content?.goal || ''} />
+              </p>
+            </div>
+            <button className="btn btn-primary btn-lg" onClick={() => setShowObjective(false)}>
+              がんばるぞー！おー！
+            </button>
           </div>
         </div>
       )}

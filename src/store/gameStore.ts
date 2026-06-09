@@ -63,7 +63,6 @@ export const initialState: GameState = {
   turn: 0,
   lastDiceValue: null,
   currentEvent: { type: null, content: null },
-  assistMode: false,
   teacherNotes: [],
   achievedTasks: [],
   capturedPhotos: [],
@@ -99,7 +98,6 @@ export type GameAction =
   | { type: 'GOAL_DONE' }
   | { type: 'ADD_TEACHER_NOTE'; note: Omit<TeacherNote, 'turn'> }
   | { type: 'ADD_PHOTO'; dataUrl: string }
-  | { type: 'TOGGLE_ASSIST_MODE' }
   | { type: 'END_SESSION' }
   | { type: 'DISMISS_TEAM_AWARD' };
 
@@ -382,9 +380,6 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 
     case 'ADD_PHOTO':
       return { ...state, capturedPhotos: [...state.capturedPhotos, action.dataUrl] };
-
-    case 'TOGGLE_ASSIST_MODE':
-      return { ...state, assistMode: !state.assistMode };
 
     case 'END_SESSION':
       return { ...state, phase: 'summary' };

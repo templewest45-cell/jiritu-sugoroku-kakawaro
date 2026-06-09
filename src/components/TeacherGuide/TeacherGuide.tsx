@@ -28,7 +28,7 @@ export function TeacherGuide({ dispatch }: Props) {
     ],
     currentPlayerIndex: 0,
     currentEvent: { type: null, content: null },
-    assistMode: false,
+    teacherNotes: [],
     teamPoints: 0,
     turn: 1
   };

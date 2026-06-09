@@ -9,9 +9,10 @@ interface Props {
   assistMode: boolean;
   dispatch: React.Dispatch<GameAction>;
   onEndSession: () => void;
+  onShowObjective: () => void;
 }
 
-export function ScoreBoard({ players, currentPlayerIndex, teamPoints, assistMode, dispatch, onEndSession }: Props) {
+export function ScoreBoard({ players, currentPlayerIndex, teamPoints, dispatch, onEndSession, onShowObjective }: Props) {
   return (
     <div className="scoreboard">
       {/* チーム合計 */}
@@ -66,10 +67,10 @@ export function ScoreBoard({ players, currentPlayerIndex, teamPoints, assistMode
       {/* コントロール */}
       <div className="scoreboard__controls">
         <button
-          className={`btn btn-sm ${assistMode ? 'btn-blue' : 'btn-ghost'}`}
-          onClick={() => dispatch({ type: 'TOGGLE_ASSIST_MODE' })}
+          className="btn btn-sm btn-blue"
+          onClick={onShowObjective}
         >
-          💡 {assistMode ? '補助ON' : '補助OFF'}
+          🎯 今日のめあて
         </button>
         <button className="btn btn-sm btn-red" onClick={onEndSession}>
           🏁 終了

@@ -21,7 +21,7 @@ const RANDOM_EVENT_INFO: Record<RandomEventType, { icon: string; name: string; d
 };
 
 export function EventModals({ state, dispatch }: Props) {
-  const { eventPhase, currentEvent, players, currentPlayerIndex, assistMode, pendingMinigame } = state;
+  const { eventPhase, currentEvent, players, currentPlayerIndex, pendingMinigame } = state;
   const currentPlayer = players[currentPlayerIndex];
   const [teacherNote, setTeacherNote] = useState('');
   const [selectedTarget, setSelectedTarget] = useState<number | null>(null);
@@ -175,30 +175,16 @@ export function EventModals({ state, dispatch }: Props) {
             🎁 成功報酬: +10pt
           </div>
 
-          {assistMode && (
-            <div className="event-modal__assist">
-              <div className="event-modal__assist-title">💡 補助モード</div>
-              <div className="event-modal__choices">
-                <button className="btn btn-blue btn-lg" onClick={() => dispatch({ type: 'BLUE_SUCCESS' })}>
-                  ✅ できた！
-                </button>
-                <button className="btn btn-ghost btn-lg" onClick={() => dispatch({ type: 'BLUE_SKIP' })}>
-                  🙏 むずかしかった
-                </button>
-              </div>
-            </div>
-          )}
-
-          {!assistMode && (
-            <div className="event-modal__actions">
-              <button className="btn btn-green btn-lg" onClick={() => dispatch({ type: 'BLUE_SUCCESS' })}>
-                ✅ できた！ +10pt
+          <div className="event-modal__assist">
+            <div className="event-modal__choices">
+              <button className="btn btn-blue btn-lg" onClick={() => dispatch({ type: 'BLUE_SUCCESS' })}>
+                ✅ できた！
               </button>
-              <button className="btn btn-ghost" onClick={() => dispatch({ type: 'BLUE_SKIP' })}>
-                スキップ
+              <button className="btn btn-ghost btn-lg" onClick={() => dispatch({ type: 'BLUE_SKIP' })}>
+                🙏 むずかしかった
               </button>
             </div>
-          )}
+          </div>
         </div>
       </div>
     );
