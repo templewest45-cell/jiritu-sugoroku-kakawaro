@@ -1,6 +1,7 @@
 import './Summary.css';
 import type { GameState } from '../../types/game';
 import type { GameAction } from '../../store/gameStore';
+import { RubyText } from '../RubyText/RubyText';
 
 interface Props {
   state: GameState;
@@ -43,7 +44,7 @@ export function Summary({ state, dispatch }: Props) {
             {achievedTasks.map((t, i) => (
               <div key={i} className="summary__task-row">
                 <span className="summary__task-player">{t.playerName}</span>
-                <span className="summary__task-text">{t.taskText}</span>
+                <span className="summary__task-text"><RubyText text={t.taskText} /></span>
                 <span className="summary__task-turn">T{t.turn}</span>
               </div>
             ))}
@@ -71,7 +72,7 @@ export function Summary({ state, dispatch }: Props) {
             {teacherNotes.map((n, i) => (
               <div key={i} className="summary__note-row">
                 <span className="summary__note-player">{n.playerName}</span>
-                <span className="summary__note-text">{n.text}</span>
+                <span className="summary__note-text"><RubyText text={n.text} /></span>
                 <span className="summary__note-turn">T{n.turn}</span>
               </div>
             ))}
